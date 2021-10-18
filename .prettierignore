@@ -1,0 +1,5 @@
+build/
+src/reportWebVitals.ts
+
+# npm
+package-lock.json
