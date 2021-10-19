@@ -1,15 +1,36 @@
 import {Box, Grid} from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
+import {Duration} from 'luxon';
 import React, {FC} from 'react';
-import {VictoryChart, VictoryScatter, VictoryTheme, VictoryZoomContainer} from 'victory';
+import {
+	LineSegment,
+	VictoryAxis,
+	VictoryChart,
+	VictoryScatter,
+	VictoryTheme,
+	VictoryZoomContainer,
+} from 'victory';
 import useJobActions from '../../hooks/useJobActions';
-import Graphrechart from './graphrechart';
+
+// @ts-ignore
+const formatTick = (tick) => {
+	const format = tick < 0 ? 's.S' : 'm:ss.S';
+	const duration = Duration.fromMillis(tick).normalize();
+	// const if(duration.as('seconds') >= 60)
+
+	return duration.toFormat(format);
+};
+
+const ticks: number[] = [];
+for (let i = -30; i < 120; i += 2.5) {
+	ticks.push(i * 1000);
+}
 
 const gcd = 2500;
 const oGcd = 800;
-const convertData = (actions: any[]) => {
-	let nextGcdTime = 0;
-	let nextOGcd = oGcd;
+const convertData = (actions: any[], start = 0) => {
+	let nextGcdTime = start;
+	let nextOGcd = nextGcdTime + oGcd;
 	return actions.map((x: any) => {
 		let point;
 		if (x.isGCD) {
@@ -36,15 +57,18 @@ const convertData = (actions: any[]) => {
 	});
 };
 // @ts-ignore
-const Test = (props) => (
-	<image
-		x={props.x}
-		y={props.datum.type === 'GCD' ? props.y - 40 : props.y}
-		xlinkHref={`https://xivapi.com${props.datum.icon}`}
-		height={40}
-		width={40}
-	/>
-);
+const Test = (props) => {
+	const size = props.datum.type === 'oGCD' ? 30 : 40;
+	return (
+		<image
+			x={props.x}
+			y={props.datum.type === 'GCD' ? props.y - 40 : props.y}
+			xlinkHref={`https://xivapi.com${props.datum.icon}`}
+			height={size}
+			width={size}
+		/>
+	);
+};
 
 function shuffleArray(array: any[]) {
 	for (let i = array.length - 1; i > 0; i--) {
@@ -62,7 +86,11 @@ const JobActions: FC = () => {
 
 	const actions = [...data.actions];
 	shuffleArray(actions);
-	const chartData = convertData(actions);
+	const chartData = [
+		{icon: '/i/003000/003183_hr1.png', type: 'oGCD', time: -4000},
+		...convertData(actions),
+		...convertData(actions, 50000),
+	];
 
 	console.log(chartData);
 
@@ -77,20 +105,35 @@ const JobActions: FC = () => {
 					))}
 				</Grid>
 			</Box>
-			<Graphrechart data={chartData} />
 			<VictoryChart
-				height={400}
+				height={150}
 				width={1200}
 				theme={VictoryTheme.material}
-				containerComponent={<VictoryZoomContainer responsive={false} />}
+				containerComponent={<VictoryZoomContainer responsive={false} zoomDimension={'y'} />}
 			>
+				<VictoryAxis
+					theme={VictoryTheme.material}
+					style={{
+						axis: {stroke: 'black'},
+						ticks: {stroke: 'transparent'},
+						tickLabels: {fill: 'transparent'},
+					}}
+					crossAxis
+				/>
+				<VictoryAxis
+					dependentAxis
+					tickComponent={<LineSegment />}
+					theme={VictoryTheme.material}
+					tickFormat={formatTick}
+					scale="time"
+					tickValues={ticks}
+				/>
 				<VictoryScatter
 					horizontal
 					data={chartData}
 					categories={{x: ['GCD', 'oGCD']}}
 					y={'time'}
 					x={'type'}
-					scale="time"
 					dataComponent={<Test />}
 				></VictoryScatter>
 			</VictoryChart>
