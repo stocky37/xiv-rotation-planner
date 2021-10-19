@@ -1,14 +1,6 @@
 import lightFormat from 'date-fns/lightFormat';
 import React, {FC} from 'react';
-import {
-	Brush,
-	CartesianGrid,
-	ResponsiveContainer,
-	Scatter,
-	ScatterChart,
-	XAxis,
-	YAxis,
-} from 'recharts';
+import {CartesianGrid, ResponsiveContainer, Scatter, ScatterChart, XAxis, YAxis} from 'recharts';
 
 // @ts-ignore
 const formatTick = (tick) => {
@@ -24,52 +16,22 @@ const CustomizedDot = ({cx, cy, payload}) => {
 	);
 };
 
-const gcd = 2500;
-const oGcd = 800;
-
 // @ts-ignore
-const Graphrechart: FC<Props> = ({actions}) => {
-	let nextGcdTime = 0;
-	let nextOGcd = oGcd;
-	const chartData = actions.map((x: any) => {
-		let point;
-		if (x.isGCD) {
-			point = {
-				icon: x.icon,
-				type: 'GCD',
-				time: nextGcdTime,
-			};
-			nextGcdTime += gcd;
-			nextOGcd = nextGcdTime + oGcd;
-		} else {
-			point = {
-				icon: x.icon,
-				type: 'oGCD',
-				time: nextOGcd,
-			};
-			nextOGcd += oGcd;
-		}
-
-		return point;
-	});
-
-	return (
-		<ResponsiveContainer width="100%" height={300}>
-			<ScatterChart>
-				<CartesianGrid />
-				<YAxis name="Type" dataKey="type" type="category" allowDuplicatedCategory={false} />
-				<XAxis
-					type="number"
-					dataKey="time"
-					domain={[0, 'dataMax']}
-					scale={'time'}
-					tickFormatter={formatTick}
-				/>
-				<Brush dataKey="time" height={30} width={500} stroke="#8884d8" />
-				<Scatter data={chartData} shape={CustomizedDot} />
-			</ScatterChart>
-		</ResponsiveContainer>
-	);
-};
+const Graphrechart: FC<Props> = ({data}) => (
+	<ResponsiveContainer width="100%" height={300}>
+		<ScatterChart>
+			<CartesianGrid />
+			<YAxis dataKey="type" type="category" allowDuplicatedCategory={false} />
+			<XAxis
+				type="number"
+				dataKey="time"
+				domain={[0, 'dataMax']}
+				scale={'time'}
+				tickFormatter={formatTick}
+			/>
+			<Scatter data={data} shape={CustomizedDot} />
+		</ScatterChart>
+	</ResponsiveContainer>
+);
 
 export default Graphrechart;
