@@ -10,6 +10,7 @@ type Props = {
 	size?: number;
 	oGcdOffset?: number | string;
 	oGcdRatio?: number;
+	onActionClick?: (action: TimelineXIVAction, index: number) => void;
 };
 
 const Rotation: FC<Props> = ({
@@ -17,6 +18,7 @@ const Rotation: FC<Props> = ({
 	size = DEFAULT_ACTION_SIZE,
 	oGcdRatio = 0.8,
 	oGcdOffset = 1,
+	onActionClick = () => {},
 }) => {
 	const gcdStyle: SxProps = {
 		marginBottom: 1,
@@ -25,11 +27,15 @@ const Rotation: FC<Props> = ({
 
 	return (
 		<Stack direction="row" gap={0.25} flexWrap={'wrap'}>
-			{actions.map((action: any) => (
+			{actions.map((action, index) => (
 				<Action
+					key={index}
 					action={action}
-					sx={action.isGCD ? gcdStyle : {}}
-					size={action.isGCD ? size : size * oGcdRatio}
+					sx={action.onGCD ? gcdStyle : {}}
+					size={action.onGCD ? size : size * oGcdRatio}
+					onClick={() => {
+						onActionClick(action, index);
+					}}
 				/>
 			))}
 		</Stack>

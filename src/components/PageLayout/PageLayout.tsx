@@ -1,3 +1,4 @@
+import {Container} from '@mui/material';
 import {FC, ReactNode} from 'react';
 import Header from '../Header';
 
@@ -8,8 +9,7 @@ type Props = {
 const PageLayout: FC<Props> = ({children}) => (
 	<>
 		<Header />
-		{children}
-		{/*<Container>{children}</Container>*/}
+		<Container sx={{paddingTop: 4}}>{children}</Container>
 	</>
 );
 

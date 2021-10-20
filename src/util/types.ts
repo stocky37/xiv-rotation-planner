@@ -1,13 +1,13 @@
 export type XIVAction = {
-	id: number;
+	id: string;
 	name: string;
 	category: string;
 	description: string;
 	icon: string;
 	iconHD: string;
 	comboFrom?: number;
-	isGCD: boolean;
-	cooldownGroup: number;
+	onGCD: boolean;
+	cooldownGroups: number[];
 	recast: number;
 	cast: number;
 	isRoleAction: boolean;

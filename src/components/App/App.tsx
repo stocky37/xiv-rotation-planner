@@ -1,10 +1,10 @@
 import React from 'react';
-import JobActions from '../JobActions';
+import RotationPage from '../../RotationPage';
 import PageLayout from '../PageLayout';
 
 const App = () => (
 	<PageLayout>
-		<JobActions />
+		<RotationPage />
 	</PageLayout>
 );
 

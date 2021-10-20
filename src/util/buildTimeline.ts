@@ -11,7 +11,7 @@ export default function buildTimeline(
 
 	return actions.map((action) => {
 		let point: any = {...action};
-		if (action.isGCD) {
+		if (action.onGCD) {
 			point.gcdType = 'GCD';
 			point.timeline = nextGcd;
 			nextOGcd = nextGcd + actionDelay;

@@ -30,9 +30,14 @@ const VictoryImageDataComponent: FC<Props> = ({
 	modPoint = noopModPoint,
 }) => {
 	const size = typeof imageSize === 'function' ? imageSize(datum) : imageSize;
-	const {x: imageX, y: imageY} = modPoint({x, y}, datum, size);
-	console.log({imageX, imageY});
-	return <image x={imageX} y={imageY} xlinkHref={imageUrl(datum)} height={size} width={size} />;
+	return (
+		<image
+			{...modPoint({x, y}, datum, size)}
+			xlinkHref={imageUrl(datum)}
+			height={size}
+			width={size}
+		/>
+	);
 };
 
 export default VictoryImageDataComponent;

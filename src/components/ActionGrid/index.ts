@@ -1,3 +1,3 @@
-import ActionGrid from './ActionGrid';
+import Actions from './Actions';
 
-export default ActionGrid;
+export default Actions;
