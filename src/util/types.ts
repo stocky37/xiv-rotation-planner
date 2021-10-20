@@ -1,4 +1,4 @@
-export type Action = {
+export type XIVAction = {
 	id: number;
 	name: string;
 	category: string;
@@ -16,7 +16,7 @@ export type Action = {
 
 export type GcdType = 'GCD' | 'oGCD';
 
-export type TimelineAction = {
+export type TimelineXIVAction = {
 	gcdType: GcdType;
 	timeline: number;
-} & Action;
+} & XIVAction;

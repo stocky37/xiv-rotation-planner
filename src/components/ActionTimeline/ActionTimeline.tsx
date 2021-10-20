@@ -10,13 +10,13 @@ import {
 	VictoryZoomContainer,
 } from 'victory';
 import {VictoryThemeDefinition} from 'victory-core';
-import {TimelineAction} from '../../util/types';
+import {TimelineXIVAction} from '../../util/types';
 import xivIcon from '../../util/xivIcon';
 import type {Point} from '../VictoryIconDataComponent';
 import VictoryImageDataComponent from '../VictoryIconDataComponent';
 
 type Props = {
-	actions: TimelineAction[];
+	actions: TimelineXIVAction[];
 	gcd?: number;
 	height?: number;
 	width?: number | string;
@@ -30,12 +30,13 @@ const formatTick = (tick: any): string => {
 };
 
 const getActionIconUrl = (datum: any): string => {
-	return xivIcon(datum.iconHD);
+	return xivIcon(datum.icon);
 };
 
-const modImagePoint = (point: Point, datum: TimelineAction, size: number): Point => {
+const imageShift = 2;
+const modImagePoint = (point: Point, datum: TimelineXIVAction, size: number): Point => {
 	const x = (point.x ?? 0) - size / 2;
-	const y = datum.isGCD ? (point.y ?? 0) - size : point.y;
+	const y = datum.isGCD ? (point.y ?? 0) - size - imageShift : (point.y ?? 0) + imageShift;
 	return {x, y};
 };
 
@@ -49,7 +50,7 @@ const getTicks = (timeline: number, gcd: number): number[] => {
 
 const ActionTimeline: FC<Props> = ({
 	actions,
-	height = 150,
+	height = 160,
 	width = 600,
 	theme = VictoryTheme.material,
 	gcd = 2500,

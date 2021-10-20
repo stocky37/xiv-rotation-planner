@@ -1,11 +1,11 @@
 import {ACTION_DELAY} from './constants';
-import {Action, TimelineAction} from './types';
+import {TimelineXIVAction, XIVAction} from './types';
 
 export default function buildTimeline(
-	actions: Action[],
+	actions: XIVAction[],
 	gcd = 2500,
 	actionDelay = ACTION_DELAY
-): TimelineAction[] {
+): TimelineXIVAction[] {
 	let nextGcd = 0;
 	let nextOGcd = 0;
 
@@ -24,6 +24,6 @@ export default function buildTimeline(
 				nextGcd = nextOGcd;
 			}
 		}
-		return point as TimelineAction;
+		return point as TimelineXIVAction;
 	});
 }

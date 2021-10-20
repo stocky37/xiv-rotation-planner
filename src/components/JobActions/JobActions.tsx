@@ -1,10 +1,11 @@
-import {Box, Grid} from '@mui/material';
+import {Stack} from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import React, {FC} from 'react';
 import useJobActions from '../../hooks/useJobActions';
 import buildTimeline from '../../util/buildTimeline';
-import xivIcon from '../../util/xivIcon';
+import ActionGrid from '../ActionGrid';
 import ActionTimeline from '../ActionTimeline';
+import Rotation from '../Rotation';
 
 // @ts-ignore
 function shuffleArray(array: any[]) {
@@ -21,24 +22,17 @@ const JobActions: FC = () => {
 		return <CircularProgress />;
 	}
 
-	const actions = [...data.actions];
-	shuffleArray(actions);
-	const chartData = [...buildTimeline(actions)];
-	console.log({chartData});
+	const shuffled = [...data.actions];
+	shuffleArray(shuffled);
+	const timeline = [...buildTimeline(shuffled)];
+	console.log({chartData: timeline});
 
 	return (
-		<>
-			<Box sx={{maxWidth: '300px'}}>
-				<Grid container spacing={1}>
-					{data.actions.map((action: any) => (
-						<Grid item key={action.id}>
-							<img alt={action.name} src={xivIcon(action.icon)} />
-						</Grid>
-					))}
-				</Grid>
-			</Box>
-			<ActionTimeline actions={chartData} />
-		</>
+		<Stack gap={10}>
+			<ActionGrid actions={data.actions} />
+			<Rotation actions={shuffled} />
+			<ActionTimeline actions={timeline} />
+		</Stack>
 	);
 };
 
