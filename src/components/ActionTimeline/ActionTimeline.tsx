@@ -91,7 +91,7 @@ const ActionTimeline: FC<Props> = ({
 					theme={theme}
 					scale="time"
 					tickFormat={formatTick}
-					tickValues={getTicks(actions.slice(-1)[0].timeline, gcd)}
+					tickValues={getTicks(actions.length ? actions.slice(-1)[0].timeline : 0, gcd)}
 				/>
 				<VictoryScatter
 					horizontal
