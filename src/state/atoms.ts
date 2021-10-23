@@ -1,6 +1,19 @@
 import {atom, selector} from 'recoil';
 import buildTimeline from '../util/buildTimeline';
+import {DEFAULT_JOB} from '../util/constants';
 import {XIVAction} from '../util/types';
+
+export const jobAtom = atom<String>({
+	key: 'job',
+	default: DEFAULT_JOB,
+});
+
+export const getSelectedJob = selector({
+	key: 'getJob',
+	get: ({get}) => {
+		return get(jobAtom);
+	},
+});
 
 export const rotationAtom = atom<XIVAction[]>({
 	key: 'rotation',

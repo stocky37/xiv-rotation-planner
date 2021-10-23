@@ -1,5 +1,5 @@
 import React from 'react';
-import RotationPage from '../../RotationPage';
+import RotationPage from '../../pages/RotationPage';
 import PageLayout from '../PageLayout';
 
 const App = () => (
