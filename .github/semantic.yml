@@ -1,0 +1,15 @@
+enabled: false
+titleOnly: true
+types:
+  - chore
+  - ci
+  - build
+  - docs
+  - feat
+  - fix
+  - ops
+  - perf
+  - refactor
+  - revert
+  - style
+  - test
