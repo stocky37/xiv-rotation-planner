@@ -11,7 +11,7 @@ export const jobAtom = atom<String>({
 export const getSelectedJob = selector({
 	key: 'getJob',
 	get: ({get}) => {
-		return get(jobAtom);
+		return get(jobAtom) as string;
 	},
 });
 

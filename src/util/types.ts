@@ -40,3 +40,8 @@ export type Job = {
 export type JobWithAction = {
 	actions: XIVAction[];
 } & Job;
+
+export type QueryParams = {
+	job?: string;
+	rotation?: string;
+};
