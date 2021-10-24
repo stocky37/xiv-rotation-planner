@@ -1,12 +1,6 @@
-import {
-	ListItemIcon,
-	ListItemText,
-	ListSubheader,
-	MenuItem,
-	Select,
-	SelectChangeEvent,
-} from '@mui/material';
-import {FC} from 'react';
+import type {SelectChangeEvent} from '@mui/material';
+import {ListItemIcon, ListItemText, ListSubheader, MenuItem, Select} from '@mui/material';
+import type {FC} from 'react';
 
 import {
 	filterHealers,
@@ -15,7 +9,7 @@ import {
 	filterRangedPhysDps,
 	filterTanks,
 } from '../../util/jobs';
-import {Job} from '../../util/types';
+import type {Job} from '../../util/types';
 import JobIcon from '../JobIcon';
 
 type Props = {
@@ -25,13 +19,13 @@ type Props = {
 };
 
 const menuItem = (job: Job) => (
-		<MenuItem key={job.id} value={job.id} sx={{textTransform: 'capitalize'}}>
-			<ListItemIcon>
-				<JobIcon job={job} variant="transparent" />
-			</ListItemIcon>
-			<ListItemText>{job.name}</ListItemText>
-		</MenuItem>
-	);
+	<MenuItem key={job.id} value={job.id} sx={{textTransform: 'capitalize'}}>
+		<ListItemIcon>
+			<JobIcon job={job} variant="transparent" />
+		</ListItemIcon>
+		<ListItemText>{job.name}</ListItemText>
+	</MenuItem>
+);
 
 const JobSelect: FC<Props> = ({defaultValue, onChange, jobs = []}) => (
 	<Select

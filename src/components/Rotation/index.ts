@@ -1,3 +1,1 @@
-import Rotation from './Rotation';
-
-export default Rotation;
+export {default} from './Rotation';

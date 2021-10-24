@@ -1,6 +1,6 @@
-import {FC} from 'react';
+import type {FC} from 'react';
 
-import RotationPage from '../../pages/RotationPage';
+import RotationPage from '../../pages/RotationPage/RotationPage';
 import PageLayout from '../PageLayout';
 
 const App: FC = () => (

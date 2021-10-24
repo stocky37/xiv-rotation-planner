@@ -1,7 +1,7 @@
 import {Box, Tooltip} from '@mui/material';
 import {Theme} from '@mui/material/styles';
-import {SxProps} from '@mui/system';
-import {FC} from 'react';
+import type {SxProps} from '@mui/system';
+import type {FC} from 'react';
 
 import type {XIVAction} from '../../util/types';
 import xivIcon from '../../util/xivIcon';
@@ -12,9 +12,9 @@ type Variant = 'default' | 'readonly';
 
 type Props = {
 	action: XIVAction;
+	cursor?: boolean;
 	size?: number;
 	sx?: SxProps<Theme>;
-	cursor?: boolean;
 	variant?: Variant;
 	[x: string]: unknown;
 };

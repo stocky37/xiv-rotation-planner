@@ -1,9 +1,9 @@
 import {Box} from '@mui/material';
-import {FC} from 'react';
+import type {FC} from 'react';
 
-import {XIVAction} from '../../util/types';
+import type {XIVAction} from '../../util/types';
 import Action from '../Action';
-import {DEFAULT_ACTION_SIZE} from '../Action/Action';
+import {DEFAULT_ACTION_SIZE} from '../Action';
 
 type Props = {
 	actions?: XIVAction[];
