@@ -1,0 +1,30 @@
+{
+	"extends": [
+		"react-app",
+		"react-app/jest",
+		"airbnb-typescript",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:@typescript-eslint/recommended-requiring-type-checking",
+		"plugin:jest/recommended",
+		"plugin:react/jsx-runtime",
+		"prettier"
+	],
+	"parserOptions": {
+		"project": "./tsconfig.json"
+	},
+	"plugins": ["simple-import-sort"],
+	"rules": {
+		"import/no-anonymous-default-export": "error",
+		"react/jsx-props-no-spreading": "off",
+		"react/require-default-props": "off",
+		"simple-import-sort/exports": "error",
+		"simple-import-sort/imports": "error",
+		"sort-imports": "off",
+		"no-use-before-define": ["error", {"functions": false, "classes": true, "variables": true}],
+		"@typescript-eslint/explicit-function-return-type": "off",
+		"@typescript-eslint/no-use-before-define": [
+			"error",
+			{"functions": false, "classes": true, "variables": true, "typedefs": true}
+		]
+	}
+}
