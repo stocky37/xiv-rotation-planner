@@ -1,19 +1,31 @@
-import {Paper, Stack} from '@mui/material';
+import {Paper, SelectChangeEvent, Stack} from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import React, {FC, useCallback} from 'react';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import Actions from '../components/ActionGrid';
 import JobSelect from '../components/JobSelect';
 import Rotation from '../components/Rotation';
+import {useJob} from '../hooks/useJob';
 import useJobActions from '../hooks/useJobActions';
-import {getRotation, getSelectedJob, rotationAtom} from '../state/atoms';
+import useJobs from '../hooks/useJobs';
+import {useSetJob} from '../hooks/useSetJob';
+import {getRotation, rotationAtom} from '../state/atoms';
 import {XIVAction} from '../util/types';
 
 const RotationPage: FC = () => {
-	const selectedJob = useRecoilValue(getSelectedJob);
-	const {isLoading, data} = useJobActions(selectedJob);
+	const selectedJob = useJob();
+	const setJob = useSetJob();
+	const {isLoading: isLoadingJob, data: job} = useJobActions(selectedJob);
+	const {isLoading: isLoadingJobs, data: jobs} = useJobs();
 	const [rotation, setRotation] = useRecoilState(rotationAtom);
 	const timeline = useRecoilValue(getRotation);
+
+	const onSelectChange = useCallback(
+		(event: SelectChangeEvent) => {
+			setJob(event.target.value);
+		},
+		[setJob]
+	);
 
 	const addAction = useCallback(
 		(action: XIVAction) => {
@@ -31,15 +43,15 @@ const RotationPage: FC = () => {
 		[rotation, setRotation]
 	);
 
-	if (isLoading || !data) {
+	if (isLoadingJob || isLoadingJobs || !jobs) {
 		return <CircularProgress />;
 	}
 
 	return (
 		<Stack gap={4} alignItems={'center'}>
-			<JobSelect />
+			<JobSelect defaultValue={selectedJob} onChange={onSelectChange} jobs={jobs} />
 			<Paper elevation={3} sx={{padding: 1, maxWidth: 400}}>
-				<Actions actions={data.actions} onClick={addAction} />
+				<Actions actions={job?.actions} onClick={addAction} />
 			</Paper>
 			<Paper elevation={3} sx={{padding: 1}}>
 				<Rotation actions={timeline} onActionClick={removeAction} />
