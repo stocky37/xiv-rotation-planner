@@ -23,6 +23,7 @@
 		"eslint-plugin-simple-import-sort": "^7.0.0",
 		"history": "^5.0.1",
 		"jsoncrush": "^1.1.6",
+		"lint-staged": "^11.2.4",
 		"luxon": "^2.0.2",
 		"prettier": "^2.4.1",
 		"qs": "^6.10.1",
@@ -42,7 +43,8 @@
 		"eject": "react-scripts eject",
 		"lint": "eslint -c .eslintrc.types.json --ext ts,tsx src",
 		"lint:clear": "rm -rf node_modules/.cache/eslint-loader",
-		"lint:fix": "npm run lint -- --fix"
+		"lint:fix": "npm run lint -- --fix",
+		"prepare": "husky install"
 	},
 	"browserslist": {
 		"production": [
@@ -59,5 +61,12 @@
 	"engines": {
 		"node": ">=14.0.0",
 		"npm": ">=7.0.0"
+	},
+	"devDependencies": {
+		"husky": "^7.0.0"
+	},
+	"lint-staged": {
+		"*.{ts,tsx,js,jsx,ts,tsx}": "eslint --fix",
+		"*.{ts,tsx,js,jsx,json,yaml,yml,md,css}": "prettier --write"
 	}
 }
