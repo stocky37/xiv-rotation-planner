@@ -1,12 +1,9 @@
-import {useRecoilValue} from 'recoil';
-import {getSelectedJob, jobAtom} from '../state/atoms';
-import {useGetRecoilValueInfo_UNSTABLE} from 'recoil';
-import {getQueryParams} from '../util/queryParams';
+import {useQuery} from 'react-query';
+import {UseQueryResult} from 'react-query/types/react/types';
+import {JobWithAction} from '../util/types';
 
-export function useJob(): string {
-	const getRecoilValueInfo = useGetRecoilValueInfo_UNSTABLE();
-	const {isSet} = getRecoilValueInfo(jobAtom);
-	const stateValue = useRecoilValue(getSelectedJob) as string;
-	const queryParamValue = getQueryParams().job as string;
-	return isSet || !queryParamValue ? stateValue : queryParamValue;
+export default function useJob(jobId: string): UseQueryResult<JobWithAction> {
+	return useQuery(['jobs', jobId], () =>
+		fetch(`http://localhost:8080/jobs/${jobId}`).then((res) => res.json())
+	);
 }

@@ -43,4 +43,5 @@ export type JobWithAction = {
 
 export type QueryParams = {
 	job?: string;
+	rotation?: string;
 };
