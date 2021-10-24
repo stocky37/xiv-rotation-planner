@@ -1,7 +1,8 @@
 import {Box, Tooltip} from '@mui/material';
 import {Theme} from '@mui/material/styles';
 import {SxProps} from '@mui/system';
-import React, {FC} from 'react';
+import {FC} from 'react';
+
 import type {XIVAction} from '../../util/types';
 import xivIcon from '../../util/xivIcon';
 
@@ -15,7 +16,7 @@ type Props = {
 	sx?: SxProps<Theme>;
 	cursor?: boolean;
 	variant?: Variant;
-	[x: string]: any;
+	[x: string]: unknown;
 };
 
 const boxStyle: SxProps<Theme> = {
@@ -72,20 +73,18 @@ const Action: FC<Props> = ({
 	sx = {},
 	variant = 'default',
 	...props
-}) => {
-	return (
-		<Tooltip title={action.name} disableInteractive>
-			<Box sx={{...boxStyle, ...sx, height: size, width: size, ...styles[variant]}} {...props}>
-				<Box
-					component="img"
-					alt={action.name}
-					src={xivIcon(action.iconHD)}
-					height={size}
-					width={size}
-				/>
-			</Box>
-		</Tooltip>
-	);
-};
+}) => (
+	<Tooltip title={action.name} disableInteractive>
+		<Box sx={{...boxStyle, ...sx, height: size, width: size, ...styles[variant]}} {...props}>
+			<Box
+				component="img"
+				alt={action.name}
+				src={xivIcon(action.iconHD)}
+				height={size}
+				width={size}
+			/>
+		</Box>
+	</Tooltip>
+);
 
 export default Action;

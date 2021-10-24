@@ -1,6 +1,7 @@
 import {Stack} from '@mui/material';
 import {SxProps} from '@mui/system';
-import React, {FC} from 'react';
+import {FC} from 'react';
+
 import {TimelineXIVAction} from '../../util/types';
 import Action from '../Action';
 import {DEFAULT_ACTION_SIZE} from '../Action/Action';
@@ -26,7 +27,7 @@ const Rotation: FC<Props> = ({
 	};
 
 	return (
-		<Stack direction="row" gap={0.25} flexWrap={'wrap'}>
+		<Stack direction="row" gap={0.25} flexWrap="wrap">
 			{actions.map((action, index) => (
 				<Action
 					key={index}

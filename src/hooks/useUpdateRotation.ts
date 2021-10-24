@@ -1,10 +1,11 @@
 import {useCallback} from 'react';
 import {useRecoilState} from 'recoil';
+
 import {rotationAtom} from '../state/atoms';
 import {updateRotationQueryParam} from '../util/queryParams';
 import {XIVAction} from '../util/types';
 
-export function useUpdateRotation(): [
+export default function useUpdateRotation(): [
 	(action: XIVAction) => void,
 	(action: XIVAction, index: number) => void
 ] {
@@ -12,7 +13,7 @@ export function useUpdateRotation(): [
 
 	const appendAction = useCallback(
 		(action: XIVAction) => {
-			let updated = [...rotation, action];
+			const updated = [...rotation, action];
 			setRotation(updated);
 			updateRotationQueryParam(updated);
 		},
