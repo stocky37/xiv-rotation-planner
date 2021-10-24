@@ -1,13 +1,14 @@
-import qs from 'qs';
-import {QueryParams, XIVAction} from './types';
-import history from './history';
 import jsoncrush from 'jsoncrush';
+import qs, {ParsedQs} from 'qs';
 
-export function getQueryParams() {
+import history from './history';
+import {QueryParams, XIVAction} from './types';
+
+export function getQueryParams(): ParsedQs {
 	return qs.parse(history.location.search, {ignoreQueryPrefix: true, parseArrays: false});
 }
 
-export function updateQueryParams(update: QueryParams) {
+export function updateQueryParams(update: QueryParams): void {
 	const updated = {
 		...getQueryParams(),
 		...update,
@@ -20,19 +21,13 @@ export function updateQueryParams(update: QueryParams) {
 	});
 }
 
-export function updateRotationQueryParam(actions: XIVAction[]) {
-	const rotation = jsoncrush.crush(
-		JSON.stringify(
-			actions.map((action) => {
-				return action.id;
-			})
-		)
-	);
+export function updateRotationQueryParam(actions: XIVAction[]): void {
+	const rotation = jsoncrush.crush(JSON.stringify(actions.map((action) => action.id)));
 
 	updateQueryParams({rotation});
 }
 
 export function getRotationQueryParam(): string[] {
 	const value = getQueryParams().rotation as string;
-	return !value ? [] : JSON.parse(jsoncrush.uncrush(value));
+	return !value ? [] : (JSON.parse(jsoncrush.uncrush(value)) as string[]);
 }

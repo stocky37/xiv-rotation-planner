@@ -6,7 +6,8 @@ import {
 	Select,
 	SelectChangeEvent,
 } from '@mui/material';
-import React, {FC} from 'react';
+import {FC} from 'react';
+
 import {
 	filterHealers,
 	filterMeleeDps,
@@ -23,16 +24,14 @@ type Props = {
 	jobs?: Job[];
 };
 
-const menuItem = (job: Job) => {
-	return (
+const menuItem = (job: Job) => (
 		<MenuItem key={job.id} value={job.id} sx={{textTransform: 'capitalize'}}>
 			<ListItemIcon>
-				<JobIcon job={job} variant={'transparent'} />
+				<JobIcon job={job} variant="transparent" />
 			</ListItemIcon>
 			<ListItemText>{job.name}</ListItemText>
 		</MenuItem>
 	);
-};
 
 const JobSelect: FC<Props> = ({defaultValue, onChange, jobs = []}) => (
 	<Select

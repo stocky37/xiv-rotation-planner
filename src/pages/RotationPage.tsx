@@ -1,15 +1,16 @@
 import {Paper, SelectChangeEvent, Stack} from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-import React, {FC, useCallback} from 'react';
+import {FC, useCallback} from 'react';
+
 import Actions from '../components/ActionGrid';
 import JobSelect from '../components/JobSelect';
 import Rotation from '../components/Rotation';
 import useJob from '../hooks/useJob';
-import {useJobId} from '../hooks/useJobId';
+import useJobId from '../hooks/useJobId';
 import useJobs from '../hooks/useJobs';
-import {useRotation} from '../hooks/useRotation';
-import {useSetJob} from '../hooks/useSetJob';
-import {useUpdateRotation} from '../hooks/useUpdateRotation';
+import useRotation from '../hooks/useRotation';
+import useSetJob from '../hooks/useSetJob';
+import useUpdateRotation from '../hooks/useUpdateRotation';
 
 const RotationPage: FC = () => {
 	const selectedJob = useJobId();
@@ -31,7 +32,7 @@ const RotationPage: FC = () => {
 	}
 
 	return (
-		<Stack gap={4} alignItems={'center'}>
+		<Stack gap={4} alignItems="center">
 			<JobSelect defaultValue={selectedJob} onChange={onSelectChange} jobs={jobs} />
 			<Paper elevation={3} sx={{padding: 1, maxWidth: 400}}>
 				<Actions actions={job?.actions} onClick={appendAction} />

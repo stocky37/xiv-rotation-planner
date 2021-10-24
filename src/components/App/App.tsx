@@ -1,8 +1,9 @@
-import React from 'react';
+import {FC} from 'react';
+
 import RotationPage from '../../pages/RotationPage';
 import PageLayout from '../PageLayout';
 
-const App = () => (
+const App: FC = () => (
 	<PageLayout>
 		<RotationPage />
 	</PageLayout>
