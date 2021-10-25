@@ -1,8 +1,7 @@
 import {Box} from '@mui/material';
 import type {SxProps} from '@mui/system';
 import type {FC} from 'react';
-
-import type {Job} from '../../util/types';
+import type {Job} from 'util/types';
 
 type Props = {
 	job: Job;

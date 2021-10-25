@@ -1,9 +1,8 @@
 import {Stack} from '@mui/material';
 import type {SxProps} from '@mui/system';
+import Action, {DEFAULT_ACTION_SIZE} from 'components/Action';
 import type {FC} from 'react';
-
-import type {TimelineXIVAction} from '../../util/types';
-import Action, {DEFAULT_ACTION_SIZE} from '../Action';
+import type {TimelineXIVAction} from 'util/types';
 
 type Props = {
 	actions: TimelineXIVAction[];

@@ -1,31 +1,23 @@
-import {Paper, SelectChangeEvent, Stack} from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
+import {CircularProgress, Paper, SelectChangeEvent, Stack} from '@mui/material';
+import Actions from 'components/Actions';
+import JobSelect from 'components/JobSelect';
+import Rotation from 'components/Rotation';
+import useJobs from 'hooks/useJobs';
+import useRotation from 'hooks/useRotation';
+import useSelectJob from 'hooks/useSelectJob';
 import type {FC} from 'react';
 import {useCallback} from 'react';
 
-import Actions from '../../components/Actions';
-import JobSelect from '../../components/JobSelect';
-import Rotation from '../../components/Rotation';
-import useJob from '../../hooks/useJob';
-import useJobId from '../../hooks/useJobId';
-import useJobs from '../../hooks/useJobs';
-import useRotation from '../../hooks/useRotation';
-import useSetJob from '../../hooks/useSetJob';
-import useUpdateRotation from '../../hooks/useUpdateRotation';
-
 const RotationPage: FC = () => {
-	const selectedJob = useJobId();
-	const setJob = useSetJob();
-	const {isLoading: isLoadingJob, data: job} = useJob(selectedJob);
+	const [{isLoading: isLoadingJob, data: job}, selectJob] = useSelectJob();
 	const {isLoading: isLoadingJobs, data: jobs} = useJobs();
-	const [appendAction, removeAction] = useUpdateRotation();
-	const timeline = useRotation();
+	const [timeline, appendAction, removeAction] = useRotation();
 
 	const onSelectChange = useCallback(
 		(event: SelectChangeEvent) => {
-			setJob(event.target.value);
+			selectJob(event.target.value);
 		},
-		[setJob]
+		[selectJob]
 	);
 
 	if (isLoadingJob || isLoadingJobs || !jobs) {
@@ -34,7 +26,7 @@ const RotationPage: FC = () => {
 
 	return (
 		<Stack gap={4} alignItems="center">
-			<JobSelect defaultValue={selectedJob} onChange={onSelectChange} jobs={jobs} />
+			<JobSelect defaultValue={job?.id} onChange={onSelectChange} jobs={jobs} />
 			<Paper elevation={3} sx={{padding: 1, maxWidth: 400}}>
 				<Actions actions={job?.actions} onClick={appendAction} />
 			</Paper>

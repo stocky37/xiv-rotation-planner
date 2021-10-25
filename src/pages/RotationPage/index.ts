@@ -1,3 +1,1 @@
-import RotationPage from './RotationPage';
-
-export default RotationPage;
+export {default} from './RotationPage';

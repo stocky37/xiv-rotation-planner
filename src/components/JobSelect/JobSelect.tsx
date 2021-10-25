@@ -1,19 +1,18 @@
 import type {SelectChangeEvent} from '@mui/material';
 import {ListItemIcon, ListItemText, ListSubheader, MenuItem, Select} from '@mui/material';
+import JobIcon from 'components/JobIcon';
 import type {FC} from 'react';
-
 import {
 	filterHealers,
 	filterMeleeDps,
 	filterRangedMagicDps,
 	filterRangedPhysDps,
 	filterTanks,
-} from '../../util/jobs';
-import type {Job} from '../../util/types';
-import JobIcon from '../JobIcon';
+} from 'util/jobs';
+import type {Job} from 'util/types';
 
 type Props = {
-	defaultValue: string;
+	defaultValue?: string;
 	onChange?: (event: SelectChangeEvent) => void;
 	jobs?: Job[];
 };
