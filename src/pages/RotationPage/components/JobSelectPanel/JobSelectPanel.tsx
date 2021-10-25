@@ -22,12 +22,24 @@ const JobSelectPanel: FC = () => {
 	);
 
 	return (
-		<Card sx={{width: '100%'}}>
-			<CardContent>
+		<Card sx={{width: '300px'}}>
+			<CardContent
+				sx={{
+					':last-child': {
+						paddingBottom: 1,
+					},
+				}}
+			>
 				{isLoading ? (
 					<CircularProgress />
 				) : (
-					<JobSelect defaultValue={jobId} onChange={onSelectChange} jobs={jobs} fullWidth />
+					<JobSelect
+						defaultValue={jobId}
+						onChange={onSelectChange}
+						jobs={jobs}
+						fullWidth
+						variant="standard"
+					/>
 				)}
 			</CardContent>
 		</Card>

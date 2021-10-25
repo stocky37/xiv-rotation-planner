@@ -20,7 +20,9 @@ const JobActionsPanel: FC = () => {
 							actions={job?.actions.filter((action) => !action.isRoleAction)}
 							onClick={appendAction}
 						/>
-						<Typography color={'text.secondary'}>Role Actions</Typography>
+						<Typography color={'text.secondary'} sx={{marginTop: 2}}>
+							Role Actions
+						</Typography>
 						<Actions
 							actions={job?.actions.filter((action) => action.isRoleAction)}
 							onClick={appendAction}
