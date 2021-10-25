@@ -6,15 +6,23 @@ import {XIVAction} from 'util/types';
 
 export default function useUpdateRotation(): [
 	(action: XIVAction) => void,
-	(action: XIVAction, index: number) => void
+	(action: XIVAction, index: number) => void,
+	() => void
 ] {
-	const [rotation, setRotation] = useRecoilState(rotationAtom);
+	const [rotation, setRawRotation] = useRecoilState(rotationAtom);
+
+	const setRotation = useCallback(
+		(actions) => {
+			setRawRotation(actions);
+			updateRotationQueryParam(actions);
+		},
+		[setRawRotation]
+	);
 
 	const appendAction = useCallback(
 		(action: XIVAction) => {
 			const updated = [...rotation, action];
 			setRotation(updated);
-			updateRotationQueryParam(updated);
 		},
 		[setRotation, rotation]
 	);
@@ -23,11 +31,14 @@ export default function useUpdateRotation(): [
 		(action: XIVAction, index: number) => {
 			const updated = [...rotation];
 			updated.splice(index, 1);
-			updateRotationQueryParam(updated);
 			setRotation(updated);
 		},
 		[setRotation, rotation]
 	);
 
-	return [appendAction, removeAction];
+	const clearRotation = useCallback(() => {
+		setRotation([]);
+	}, [setRotation]);
+
+	return [appendAction, removeAction, clearRotation];
 }
