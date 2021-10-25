@@ -32,6 +32,7 @@ const Rotation: FC<Props> = ({
 					action={action}
 					sx={action.onGCD ? gcdStyle : {}}
 					size={action.onGCD ? size : size * oGcdRatio}
+					duration={250}
 					onClick={() => {
 						onActionClick(action, index);
 					}}

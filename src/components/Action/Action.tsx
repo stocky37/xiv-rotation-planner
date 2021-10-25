@@ -1,6 +1,7 @@
 import {Box, Tooltip} from '@mui/material';
 import {Theme} from '@mui/material/styles';
 import type {BoxProps, SxProps} from '@mui/system';
+import {Image} from 'mui-image';
 import type {FC} from 'react';
 import type {XIVAction} from 'util/types';
 import xivIcon from 'util/xivIcon';
@@ -13,6 +14,7 @@ type Props = {
 	action: XIVAction;
 	size?: number;
 	variant?: Variant;
+	duration?: number;
 } & BoxProps;
 
 const boxStyle: SxProps<Theme> = {
@@ -68,17 +70,12 @@ const Action: FC<Props> = ({
 	size = DEFAULT_ACTION_SIZE,
 	sx = {},
 	variant = 'default',
+	duration = 500,
 	...props
 }) => (
 	<Tooltip title={action.name} disableInteractive>
 		<Box sx={{...boxStyle, ...sx, height: size, width: size, ...styles[variant]}} {...props}>
-			<Box
-				component="img"
-				alt={action.name}
-				src={xivIcon(action.iconHD)}
-				height={size}
-				width={size}
-			/>
+			<Image src={xivIcon(action.iconHD)} width={size} height={size} duration={duration} />
 		</Box>
 	</Tooltip>
 );
