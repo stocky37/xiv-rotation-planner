@@ -1,4 +1,4 @@
-import type {SelectChangeEvent} from '@mui/material';
+import type {SelectProps} from '@mui/material';
 import {ListItemIcon, ListItemText, ListSubheader, MenuItem, Select} from '@mui/material';
 import JobIcon from 'components/JobIcon';
 import type {FC} from 'react';
@@ -13,9 +13,8 @@ import type {Job} from 'util/types';
 
 type Props = {
 	defaultValue?: string;
-	onChange?: (event: SelectChangeEvent) => void;
 	jobs?: Job[];
-};
+} & SelectProps<string>;
 
 const menuItem = (job: Job) => (
 	<MenuItem key={job.id} value={job.id} sx={{textTransform: 'capitalize'}}>
@@ -26,7 +25,7 @@ const menuItem = (job: Job) => (
 	</MenuItem>
 );
 
-const JobSelect: FC<Props> = ({defaultValue, onChange, jobs = []}) => (
+const JobSelect: FC<Props> = ({defaultValue, jobs = [], ...props}) => (
 	<Select
 		value={defaultValue}
 		autoWidth
@@ -39,7 +38,7 @@ const JobSelect: FC<Props> = ({defaultValue, onChange, jobs = []}) => (
 				},
 			},
 		}}
-		onChange={onChange}
+		{...props}
 	>
 		<ListSubheader>Tanks</ListSubheader>
 		{filterTanks(jobs).map(menuItem)}
