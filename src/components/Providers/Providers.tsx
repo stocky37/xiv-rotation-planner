@@ -1,15 +1,10 @@
-import CssBaseline from '@mui/material/CssBaseline';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {FC, ReactNode} from 'react';
-import {QueryClient, QueryClientProvider} from 'react-query';
+import {CssBaseline} from '@mui/material';
+import {ThemeProvider} from '@mui/material/styles';
+import type {FC, ReactNode} from 'react';
+import {QueryClientProvider} from 'react-query';
 import {RecoilRoot} from 'recoil';
-
-const queryClient = new QueryClient();
-const theme = createTheme({
-	// palette: {
-	// 	mode: 'dark',
-	// },
-});
+import queryClient from 'util/queryClient';
+import theme from 'util/theme';
 
 type Props = {
 	children: ReactNode;

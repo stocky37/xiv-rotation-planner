@@ -1,3 +1,1 @@
-import Action from './Action';
-
-export default Action;
+export {default, DEFAULT_ACTION_SIZE} from './Action';

@@ -1,10 +1,9 @@
 import {Box, Tooltip} from '@mui/material';
 import {Theme} from '@mui/material/styles';
-import {SxProps} from '@mui/system';
-import {FC} from 'react';
-
-import type {XIVAction} from '../../util/types';
-import xivIcon from '../../util/xivIcon';
+import type {SxProps} from '@mui/system';
+import type {FC} from 'react';
+import type {XIVAction} from 'util/types';
+import xivIcon from 'util/xivIcon';
 
 export const DEFAULT_ACTION_SIZE = 40;
 
@@ -12,9 +11,9 @@ type Variant = 'default' | 'readonly';
 
 type Props = {
 	action: XIVAction;
+	cursor?: boolean;
 	size?: number;
 	sx?: SxProps<Theme>;
-	cursor?: boolean;
 	variant?: Variant;
 	[x: string]: unknown;
 };

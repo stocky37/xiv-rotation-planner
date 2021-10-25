@@ -1,14 +1,13 @@
 import {Box} from '@mui/material';
-import {SxProps} from '@mui/system';
-import {FC} from 'react';
-
-import type {Job} from '../util/types';
+import type {SxProps} from '@mui/system';
+import type {FC} from 'react';
+import type {Job} from 'util/types';
 
 type Props = {
 	job: Job;
-	variant?: 'filled' | 'svg' | 'transparent';
 	size?: string;
 	sx?: SxProps;
+	variant?: 'filled' | 'svg' | 'transparent';
 };
 
 const iconString = {
@@ -17,7 +16,7 @@ const iconString = {
 	svg: (job: Job) => `/images/jobs/svg/class_job_0${job.id}.svg`,
 };
 
-const JobIcon: FC<Props> = ({variant = 'svg', job, size = '30px', sx}) => (
+const JobIcon: FC<Props> = ({job, size = '30px', sx, variant = 'svg'}) => (
 	<Box
 		component="img"
 		alt={job.abbreviation}
