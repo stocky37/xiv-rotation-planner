@@ -1,8 +1,10 @@
-import {useQuery, UseQueryResult} from 'react-query';
-import {JobWithAction} from 'util/types';
+import type {UseQueryResult} from 'react-query';
+import {useQuery} from 'react-query';
+import {API_URL} from 'util/config';
+import type {JobWithAction} from 'util/types';
 
 export default function useJob(jobId: string): UseQueryResult<JobWithAction> {
 	return useQuery(['jobs', jobId], () =>
-		fetch(`http://localhost:8080/jobs/${jobId}`).then((res) => res.json())
+		fetch(`${API_URL}/jobs/${jobId}`).then((res) => res.json())
 	);
 }
