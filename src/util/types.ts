@@ -14,7 +14,7 @@ export type XIVAction = {
 	level: number;
 };
 
-export type GcdType = 'GCD' | 'oGCD';
+export type GcdType = 'gcd' | 'ogcd';
 
 export type TimelineXIVAction = {
 	gcdType: GcdType;

@@ -14,12 +14,12 @@ export default function buildTimeline(
 		let timeline: number;
 
 		if (action.onGCD) {
-			gcdType = 'GCD';
+			gcdType = 'gcd';
 			timeline = nextGcd;
 			nextOGcd = nextGcd + actionDelay;
 			nextGcd += gcd;
 		} else {
-			gcdType = 'oGCD';
+			gcdType = 'ogcd';
 			timeline = nextOGcd;
 			nextOGcd += actionDelay;
 			if (nextOGcd > nextGcd) {
