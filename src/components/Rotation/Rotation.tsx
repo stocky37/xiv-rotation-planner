@@ -1,9 +1,10 @@
 import {Stack} from '@mui/material';
-import type {SxProps} from '@mui/system';
 import Action, {DEFAULT_ACTION_SIZE} from 'components/Action';
 import type {FC, ReactElement} from 'react';
 import {Fragment} from 'react';
 import type {TimelineXIVAction} from 'util/types';
+
+import RotationAction from './components/RotationAction';
 
 type Props = {
 	actions: TimelineXIVAction[];
@@ -20,17 +21,17 @@ const Rotation: FC<Props> = ({
 	onActionClick = () => {},
 }) => {
 	const ogcdSize = size * oGcdRatio;
-	const gcdStyle: SxProps = {
-		marginBottom: 2,
-		marginTop: 1,
-	};
 
+	let gcdCount = 0;
 	const icons: ReactElement[] = actions.map((action, index) => {
+		if (action.onGCD) {
+			gcdCount += 1;
+		}
 		const icon = (
-			<Action
+			<RotationAction
+				label={gcdCount.toString()}
 				key={index}
 				action={action}
-				sx={action.onGCD ? gcdStyle : {}}
 				size={action.onGCD ? size : ogcdSize}
 				duration={250}
 				onClick={() => {
@@ -40,14 +41,13 @@ const Rotation: FC<Props> = ({
 		);
 
 		const spacers = [];
-		if (action.gcdType === 'gcd' && actions[index - 1]?.gcdType === 'gcd') {
+		// if current and previous action were both gcds, add two ogcd spacers
+		if (action.onGCD && actions[index - 1]?.onGCD) {
 			spacers.push(<Action variant="hidden" size={ogcdSize} />);
 			spacers.push(<Action variant="hidden" size={ogcdSize} />);
-		} else if (
-			action.gcdType === 'ogcd' &&
-			actions[index - 1]?.gcdType === 'gcd' &&
-			actions[index - 1]?.gcdType === 'gcd'
-		) {
+
+			// if current is ogcd and is surrounded by gcds, add a single ogcd spacer
+		} else if (!action.onGCD && actions[index - 1]?.onGCD && actions[index + 1]?.onGCD) {
 			spacers.push(<Action variant="hidden" size={ogcdSize} />);
 		}
 		return (

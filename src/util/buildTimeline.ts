@@ -1,5 +1,5 @@
 import {ACTION_DELAY} from './constants';
-import {GcdType, TimelineXIVAction, XIVAction} from './types';
+import {TimelineXIVAction, XIVAction} from './types';
 
 export default function buildTimeline(
 	actions: XIVAction[],
@@ -10,16 +10,13 @@ export default function buildTimeline(
 	let nextOGcd = 0;
 
 	return actions.map((action) => {
-		let gcdType: GcdType;
 		let timeline: number;
 
 		if (action.onGCD) {
-			gcdType = 'gcd';
 			timeline = nextGcd;
 			nextOGcd = nextGcd + actionDelay;
 			nextGcd += gcd;
 		} else {
-			gcdType = 'ogcd';
 			timeline = nextOGcd;
 			nextOGcd += actionDelay;
 			if (nextOGcd > nextGcd) {
@@ -28,7 +25,6 @@ export default function buildTimeline(
 		}
 		return {
 			...action,
-			gcdType,
 			timeline,
 		};
 	});

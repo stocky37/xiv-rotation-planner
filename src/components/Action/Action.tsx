@@ -9,7 +9,7 @@ export const DEFAULT_ACTION_SIZE = 40;
 
 type Variant = 'default' | 'readonly' | 'empty' | 'hidden';
 
-type Props = {
+export type ActionProps = {
 	action?: XIVAction;
 	size?: number;
 	variant?: Variant;
@@ -86,7 +86,7 @@ const styles: VariantStyle = {
 	hidden: hiddenVariant,
 };
 
-const Action: FC<Props> = ({
+const Action: FC<ActionProps> = ({
 	action,
 	size = DEFAULT_ACTION_SIZE,
 	sx = {},
