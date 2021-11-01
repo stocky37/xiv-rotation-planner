@@ -14,8 +14,11 @@ export type XIVAction = {
 	level: number;
 };
 
-export type TimelineXIVAction = {
-	timeline: number;
+export type TimedXIVAction = {
+	index: number;
+	timestamp: number;
+	gcdNumber?: number;
+	ogcdGaps: number;
 } & XIVAction;
 
 export type JobCategory = 'dow' | 'dom' | 'doh' | 'dol';

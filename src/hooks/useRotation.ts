@@ -3,7 +3,7 @@ import {useGetRecoilValueInfo_UNSTABLE, useRecoilState, useRecoilValue} from 're
 import {getRotation, rotationAtom} from 'util/atoms';
 import buildTimeline from 'util/buildTimeline';
 import {getRotationQueryParam} from 'util/queryParams';
-import type {TimelineXIVAction, XIVAction} from 'util/types';
+import type {TimedXIVAction, XIVAction} from 'util/types';
 
 import useSelectedJob from './useSelectedJob';
 
@@ -19,7 +19,7 @@ function normalise(actions: XIVAction[] = []): NormalisedActions {
 	return lookup;
 }
 
-export default function useRotation(): TimelineXIVAction[] {
+export default function useRotation(): TimedXIVAction[] {
 	const getRecoilValueInfo = useGetRecoilValueInfo_UNSTABLE();
 	const {isSet} = getRecoilValueInfo(rotationAtom);
 	const [, setRotation] = useRecoilState(rotationAtom);

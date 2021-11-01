@@ -5,9 +5,9 @@ import type {FC} from 'react';
 import type {XIVAction} from 'util/types';
 import xivIcon from 'util/xivIcon';
 
-export const DEFAULT_ACTION_SIZE = 40;
+export const STANDARD_ACTION_SIZE = 40;
 
-type Variant = 'default' | 'readonly' | 'empty' | 'hidden';
+type Variant = 'default' | 'readonly' | 'empty';
 
 export type ActionProps = {
 	action?: XIVAction;
@@ -20,7 +20,7 @@ const sharedStyle: SxProps = {
 	position: 'relative',
 	userSelect: 'none',
 	borderRadius: 1,
-	boxShadow: 1,
+	boxShadow: 2,
 };
 
 const actionStyle: SxProps = {
@@ -29,15 +29,12 @@ const actionStyle: SxProps = {
 		position: 'absolute',
 		content: '" "',
 		width: '100%',
-		height: '20%',
+		height: '100%',
 		top: 0,
 		left: 0,
 		borderRadius: 1,
 		zIndex: 1,
-		background: [
-			'-webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0.6)), color-stop(100%, rgba(255, 255, 255, .15)))',
-			'-moz-linear-gradient(top, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, .15) 100%)',
-		],
+		background: 'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 10%);',
 	},
 	'&:after': {
 		position: 'absolute',
@@ -71,10 +68,6 @@ const readonlyVariant: SxProps = {
 	opacity: 0.5,
 };
 
-const hiddenVariant: SxProps = {
-	opacity: 0,
-};
-
 type VariantStyle = {
 	[x in Variant]: SxProps;
 };
@@ -83,33 +76,26 @@ const styles: VariantStyle = {
 	default: defaultVariant,
 	readonly: readonlyVariant,
 	empty: emptyVariant,
-	hidden: hiddenVariant,
 };
 
 const Action: FC<ActionProps> = ({
 	action,
-	size = DEFAULT_ACTION_SIZE,
+	size = STANDARD_ACTION_SIZE,
 	sx = {},
 	variant = 'default',
 	duration = 500,
 	...props
-}) => {
-	if (!action && (variant === 'empty' || variant === 'hidden')) {
-		return (
-			<Box
-				sx={{...styles[variant], ...sx, height: size, width: size, minHeight: size, minWidth: size}}
-				{...props}
-			/>
-		);
-	}
-
-	return (
-		<Tooltip title={action?.name ?? ''} disableInteractive>
-			<Box sx={{...styles[variant], ...sx, height: size, width: size}} {...props}>
+}) => (
+	<Tooltip title={action?.name ?? ''} disableInteractive>
+		<Box
+			sx={{...styles[variant], ...sx, height: size, minHeight: size, width: size, minWidth: size}}
+			{...props}
+		>
+			{action && (
 				<Image src={xivIcon(action?.iconHD ?? '')} width={size} height={size} duration={duration} />
-			</Box>
-		</Tooltip>
-	);
-};
+			)}
+		</Box>
+	</Tooltip>
+);
 
 export default Action;

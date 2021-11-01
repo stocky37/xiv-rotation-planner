@@ -1,5 +1,5 @@
 import {Box} from '@mui/material';
-import Action, {DEFAULT_ACTION_SIZE} from 'components/Action';
+import Action, {STANDARD_ACTION_SIZE} from 'components/Action';
 import type {FC} from 'react';
 import type {XIVAction} from 'util/types';
 
@@ -9,7 +9,7 @@ type Props = {
 	onClick?: (action: XIVAction) => void;
 };
 
-const Actions: FC<Props> = ({actions = [], size = DEFAULT_ACTION_SIZE, onClick = () => {}}) => (
+const Actions: FC<Props> = ({actions = [], size = STANDARD_ACTION_SIZE, onClick = () => {}}) => (
 	<Box sx={{display: 'flex', flexWrap: 'wrap', gap: 0.5}}>
 		{actions.map((action) => (
 			<Action
