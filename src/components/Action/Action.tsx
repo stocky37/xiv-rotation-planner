@@ -1,98 +1,71 @@
 import {Box, Tooltip} from '@mui/material';
-import type {BoxProps, SxProps} from '@mui/system';
+import {BoxProps, SxProps} from '@mui/system';
 import {Image} from 'mui-image';
 import type {FC} from 'react';
-import type {XIVAction} from 'util/types';
+import {XIVAction} from 'util/types';
 import xivIcon from 'util/xivIcon';
 
-export const STANDARD_ACTION_SIZE = 40;
+export type ActionSize = 'medium' | 'large';
 
-type Variant = 'default' | 'readonly' | 'empty';
+type SizesInPx = {
+	[x in ActionSize]: number;
+};
+
+export const ActionSizesInPx: SizesInPx = {
+	medium: 40,
+	large: 64,
+};
 
 export type ActionProps = {
 	action?: XIVAction;
-	size?: number;
-	variant?: Variant;
+	size?: ActionSize;
 	duration?: number;
 } & BoxProps;
 
-const sharedStyle: SxProps = {
-	position: 'relative',
-	userSelect: 'none',
-	borderRadius: 1,
-	boxShadow: 2,
+const sizeStyle = (size: ActionSize): SxProps => {
+	const sizePx = ActionSizesInPx[size];
+	const overlaySizePx = Math.floor(sizePx * 1.2);
+	const overlayShiftPx = Math.floor(sizePx / 20) * -1;
+
+	return {
+		position: 'relative',
+		boxShadow: 2,
+		margin: '1px',
+		width: `${sizePx}px`,
+		height: `${sizePx}px`,
+		':hover': {
+			cursor: 'pointer',
+		},
+		'&:after': {
+			position: 'absolute',
+			content: '""',
+			display: 'block',
+			zIndex: 2,
+			background: `url(/images/action-overlay-${size}.png)`,
+			height: `${overlaySizePx}px`,
+			width: `${overlaySizePx}px`,
+			top: overlayShiftPx,
+			left: overlayShiftPx * 2,
+		},
+	};
 };
 
-const actionStyle: SxProps = {
-	...sharedStyle,
-	'&:before': {
-		position: 'absolute',
-		content: '" "',
-		width: '100%',
-		height: '100%',
-		top: 0,
-		left: 0,
-		borderRadius: 1,
-		zIndex: 1,
-		background: 'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 10%);',
-	},
-	'&:after': {
-		position: 'absolute',
-		content: '" "',
-		width: '100%',
-		height: '100%',
-		top: 0,
-		left: 0,
-		borderRadius: 1,
-		border: 1,
-		zIndex: 2,
-	},
-};
-
-const defaultVariant: SxProps = {
-	...actionStyle,
-	cursor: 'pointer',
-	':hover': {
-		opacity: 0.5,
-	},
-};
-
-const emptyVariant: SxProps = {
-	...sharedStyle,
-	background: 'black',
-	opacity: 0.25,
-	border: 1,
-};
-const readonlyVariant: SxProps = {
-	...actionStyle,
-	opacity: 0.5,
-};
-
-type VariantStyle = {
-	[x in Variant]: SxProps;
-};
-
-const styles: VariantStyle = {
-	default: defaultVariant,
-	readonly: readonlyVariant,
-	empty: emptyVariant,
-};
-
-const Action: FC<ActionProps> = ({
-	action,
-	size = STANDARD_ACTION_SIZE,
-	sx = {},
-	variant = 'default',
-	duration = 500,
-	...props
-}) => (
+const Action: FC<ActionProps> = ({action, size = 'medium', sx = {}, duration = 500, ...props}) => (
 	<Tooltip title={action?.name ?? ''} disableInteractive>
 		<Box
-			sx={{...styles[variant], ...sx, height: size, minHeight: size, width: size, minWidth: size}}
+			sx={{
+				...sizeStyle(size),
+				...sx,
+			}}
 			{...props}
 		>
 			{action && (
-				<Image src={xivIcon(action?.iconHD ?? '')} width={size} height={size} duration={duration} />
+				<Image
+					src={xivIcon(action?.iconHD ?? '')}
+					width={ActionSizesInPx[size]}
+					height={ActionSizesInPx[size]}
+					duration={duration}
+				/>
 			)}
 		</Box>
 	</Tooltip>
