@@ -5,9 +5,9 @@ import type {TimedXIVAction, XIVAction} from 'util/types';
 
 import RotationAction from './components/RotationAction';
 
-const GAP = 0.25;
+const gap = 0.25;
 const style: SxProps = {
-	gap: GAP,
+	gap,
 	overflowX: 'auto',
 };
 
@@ -25,7 +25,7 @@ const Rotation: FC<Props> = ({actions, onActionClick = () => {}}) => (
 				onClick={() => {
 					onActionClick(action, action.index);
 				}}
-				gap={GAP}
+				gap={gap}
 			/>
 		))}
 	</Stack>
