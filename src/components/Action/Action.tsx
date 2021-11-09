@@ -2,6 +2,7 @@ import {Box, Tooltip} from '@mui/material';
 import {BoxProps, SxProps} from '@mui/system';
 import {Image} from 'mui-image';
 import type {FC} from 'react';
+import {useDrag} from 'react-dnd';
 import {XIVAction} from 'util/types';
 import xivIcon from 'util/xivIcon';
 
@@ -50,25 +51,42 @@ const sizeStyle = (size: ActionSize): SxProps => {
 	};
 };
 
-const Action: FC<ActionProps> = ({action, size = 'medium', sx = {}, duration = 500, ...props}) => (
-	<Tooltip title={action?.name ?? ''} disableInteractive>
-		<Box
-			sx={{
-				...sizeStyle(size),
-				...sx,
-			}}
-			{...props}
-		>
-			{action && (
-				<Image
-					src={xivIcon(action?.iconHD ?? '')}
-					width={ActionSizesInPx[size]}
-					height={ActionSizesInPx[size]}
-					duration={duration}
-				/>
-			)}
-		</Box>
-	</Tooltip>
-);
+const Action: FC<ActionProps> = ({action, size = 'medium', sx = {}, duration = 500, ...props}) => {
+	const [{isDragging}, drag, preview] = useDrag(
+		() => ({
+			type: 'action',
+			collect: (monitor) => {
+				// console.log(monitor);
+				return {
+					isDragging: monitor.isDragging(),
+					item: action,
+				};
+			},
+		}),
+		[]
+	);
+
+	return (
+		<Tooltip title={action?.name ?? ''} disableInteractive>
+			<Box
+				sx={{
+					...sizeStyle(size),
+					...sx,
+				}}
+				{...props}
+				ref={drag}
+			>
+				{action && (
+					<Image
+						src={xivIcon(action?.iconHD ?? '')}
+						width={ActionSizesInPx[size]}
+						height={ActionSizesInPx[size]}
+						duration={duration}
+					/>
+				)}
+			</Box>
+		</Tooltip>
+	);
+};
 
 export default Action;

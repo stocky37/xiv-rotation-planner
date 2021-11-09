@@ -45,3 +45,8 @@ export type QueryParams = {
 	job?: string;
 	rotation?: string;
 };
+
+export type ActionDragProps = {
+	isDragging: boolean;
+	action: XIVAction;
+};
