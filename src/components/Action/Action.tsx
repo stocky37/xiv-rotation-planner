@@ -41,7 +41,7 @@ const sizeStyle = (size: ActionSize): SxProps => {
 			content: '""',
 			display: 'block',
 			zIndex: 2,
-			background: `url(/images/action-overlay-${size}.png)`,
+			background: `url(${process.env.PUBLIC_URL}/images/action-overlay-${size}.png)`,
 			height: `${overlaySizePx}px`,
 			width: `${overlaySizePx}px`,
 			top: overlayShiftPx,

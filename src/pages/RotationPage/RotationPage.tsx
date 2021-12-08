@@ -7,7 +7,7 @@ import JobSelectPanel from './components/JobSelectPanel';
 
 const RotationPage: FC = () => {
 	return (
-		<Container>
+		<Container maxWidth={false}>
 			<Stack gap={4} alignItems="center">
 				<JobSelectPanel />
 				<JobRotationPanel />

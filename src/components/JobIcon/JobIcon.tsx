@@ -11,9 +11,11 @@ type Props = {
 };
 
 const iconString = {
-	filled: (job: Job) => `/images/jobs/filled/${job.name.replaceAll(' ', '')}.png`,
-	transparent: (job: Job) => `/images/jobs/transparent/${job.name.replaceAll(' ', '')}.png`,
-	svg: (job: Job) => `/images/jobs/svg/class_job_0${job.id}.svg`,
+	filled: (job: Job) =>
+		`${process.env.PUBLIC_URL}/images/jobs/filled/${job.name.replaceAll(' ', '')}.png`,
+	transparent: (job: Job) =>
+		`${process.env.PUBLIC_URL}/images/jobs/transparent/${job.name.replaceAll(' ', '')}.png`,
+	svg: (job: Job) => `${process.env.PUBLIC_URL}/images/jobs/svg/class_job_0${job.id}.svg`,
 };
 
 const JobIcon: FC<Props> = ({job, size = '30px', sx, variant = 'svg'}) => (
