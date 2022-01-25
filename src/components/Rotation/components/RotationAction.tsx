@@ -1,5 +1,5 @@
 import {Stack, Typography} from '@mui/material';
-import Action, {ActionProps, ActionSizesInPx} from 'components/Action';
+import Action, {ActionProps, actionSize} from 'components/Action';
 import type {FC} from 'react';
 import {TimedXIVAction} from 'util/types';
 
@@ -8,20 +8,13 @@ type Props = {
 	gap?: number;
 } & ActionProps;
 
-const RotationAction: FC<Props> = ({
-	action,
-	duration = 250,
-	gap = 1,
-	size = 'medium',
-	sx,
-	...props
-}) => {
+const RotationAction: FC<Props> = ({action, duration = 250, gap = 1, sx, ...props}) => {
 	return (
 		<Stack
 			sx={{
 				...sx,
-				marginLeft: `${action.ogcdGaps * (ActionSizesInPx[size] + gap * 8)}px`,
-				marginTop: action?.onGCD ? `${ActionSizesInPx[size] / 2}px` : 0,
+				marginLeft: `${action.ogcdGaps * (actionSize + gap * 8)}px`,
+				marginTop: action?.onGCD ? `${actionSize / 2}px` : 0,
 			}}
 		>
 			<Action action={action} duration={duration} {...props} />

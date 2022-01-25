@@ -1,70 +1,33 @@
-import {Box, Tooltip} from '@mui/material';
-import {BoxProps, SxProps} from '@mui/system';
+import {Tooltip} from '@mui/material';
+import {Box, BoxProps} from '@mui/system';
 import {Image} from 'mui-image';
 import type {FC} from 'react';
+import actionIcon from 'util/actionIcon';
 import {XIVAction} from 'util/types';
-import xivIcon from 'util/xivIcon';
-
-export type ActionSize = 'medium' | 'large';
-
-type SizesInPx = {
-	[x in ActionSize]: number;
-};
-
-export const ActionSizesInPx: SizesInPx = {
-	medium: 40,
-	large: 64,
-};
 
 export type ActionProps = {
 	action?: XIVAction;
-	size?: ActionSize;
 	duration?: number;
 } & BoxProps;
 
-const sizeStyle = (size: ActionSize): SxProps => {
-	const sizePx = ActionSizesInPx[size];
-	const overlaySizePx = Math.floor(sizePx * 1.2);
-	const overlayShiftPx = Math.floor(sizePx / 20) * -1;
+export const actionSize = 46;
 
-	return {
-		position: 'relative',
-		boxShadow: 2,
-		margin: '1px',
-		width: `${sizePx}px`,
-		height: `${sizePx}px`,
-		':hover': {
-			cursor: 'pointer',
-		},
-		'&:after': {
-			position: 'absolute',
-			content: '""',
-			display: 'block',
-			zIndex: 2,
-			background: `url(${process.env.PUBLIC_URL}/images/action-overlay-${size}.png)`,
-			height: `${overlaySizePx}px`,
-			width: `${overlaySizePx}px`,
-			top: overlayShiftPx,
-			left: overlayShiftPx * 2,
-		},
-	};
+const style = {
+	':hover': {
+		cursor: 'pointer',
+	},
 };
 
-const Action: FC<ActionProps> = ({action, size = 'medium', sx = {}, duration = 500, ...props}) => (
+const Action: FC<ActionProps> = ({action, sx = {}, duration = 500, ...props}) => (
 	<Tooltip title={action?.name ?? ''} disableInteractive>
-		<Box
-			sx={{
-				...sizeStyle(size),
-				...sx,
-			}}
-			{...props}
-		>
+		<Box sx={{...style, ...sx}} {...props}>
 			{action && (
 				<Image
-					src={xivIcon(action?.iconHD ?? '')}
-					width={ActionSizesInPx[size]}
-					height={ActionSizesInPx[size]}
+					src={actionIcon(action?.icon ?? '')}
+					height={actionSize}
+					width={actionSize}
 					duration={duration}
+					{...props}
 				/>
 			)}
 		</Box>
