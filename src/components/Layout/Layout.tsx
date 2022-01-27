@@ -12,7 +12,7 @@ type Props = {
 };
 
 const Layout: FC<PropsWithChildren<Props>> = ({children, sidebar, sidebarWidth = 300}) => {
-	const [open, setOpen] = useState(true);
+	const [open] = useState(true);
 	return (
 		<>
 			<Header />

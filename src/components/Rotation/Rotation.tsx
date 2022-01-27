@@ -1,5 +1,4 @@
 import {CSSObject, Stack} from '@mui/material';
-import {SxProps} from '@mui/system';
 import type {FC} from 'react';
 import type {TimedXIVAction, XIVAction} from 'util/types';
 
@@ -9,7 +8,6 @@ const gap = 0.25;
 const style: CSSObject = {
 	gap,
 	flexWrap: 'wrap',
-	// overflowX: 'auto',
 };
 
 type Props = {
