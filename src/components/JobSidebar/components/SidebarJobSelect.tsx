@@ -1,13 +1,17 @@
-import {Card, CardContent, CircularProgress, SelectChangeEvent} from '@mui/material';
+import {Box, CircularProgress, SelectChangeEvent} from '@mui/material';
+import {SxProps} from '@mui/system';
 import JobSelect from 'components/JobSelect';
 import useJobs from 'hooks/useJobs';
 import useSelectedJobId from 'hooks/useSelectedJobId';
 import useSelectJob from 'hooks/useSelectJob';
 import useUpdateRotation from 'hooks/useUpdateRotation';
-import type {FC} from 'react';
-import {useCallback} from 'react';
+import {FC, useCallback} from 'react';
 
-const JobSelectPanel: FC = () => {
+type Props = {
+	sx?: SxProps;
+};
+
+const SidebarJobSelect: FC<Props> = ({sx}) => {
 	const {isLoading, data: jobs} = useJobs();
 	const jobId = useSelectedJobId();
 	const selectJob = useSelectJob();
@@ -22,28 +26,20 @@ const JobSelectPanel: FC = () => {
 	);
 
 	return (
-		<Card sx={{width: '300px'}}>
-			<CardContent
-				sx={{
-					':last-child': {
-						paddingBottom: 1,
-					},
-				}}
-			>
-				{isLoading ? (
-					<CircularProgress />
-				) : (
-					<JobSelect
-						defaultValue={jobId}
-						onChange={onSelectChange}
-						jobs={jobs}
-						fullWidth
-						variant="standard"
-					/>
-				)}
-			</CardContent>
-		</Card>
+		<Box sx={sx}>
+			{isLoading ? (
+				<CircularProgress />
+			) : (
+				<JobSelect
+					defaultValue={jobId}
+					onChange={onSelectChange}
+					jobs={jobs}
+					fullWidth
+					variant="standard"
+				/>
+			)}
+		</Box>
 	);
 };
 
-export default JobSelectPanel;
+export default SidebarJobSelect;
