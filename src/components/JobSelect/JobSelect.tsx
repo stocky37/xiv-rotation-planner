@@ -40,16 +40,16 @@ const JobSelect: FC<Props> = ({defaultValue, jobs = [], ...props}) => (
 		}}
 		{...props}
 	>
-		<ListSubheader>Tanks</ListSubheader>
-		{filterTanks(jobs).map(menuItem)}
-		<ListSubheader>Healers</ListSubheader>
-		{filterHealers(jobs).map(menuItem)}
 		<ListSubheader>Melee DPS</ListSubheader>
 		{filterMeleeDps(jobs).map(menuItem)}
 		<ListSubheader>Ranged Physical DPS</ListSubheader>
 		{filterRangedPhysDps(jobs).map(menuItem)}
 		<ListSubheader>Ranged Magical DPS</ListSubheader>
 		{filterRangedMagicDps(jobs).map(menuItem)}
+		<ListSubheader>Tanks</ListSubheader>
+		{filterTanks(jobs).map(menuItem)}
+		<ListSubheader>Healers</ListSubheader>
+		{filterHealers(jobs).map(menuItem)}
 	</Select>
 );
 

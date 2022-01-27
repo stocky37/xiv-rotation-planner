@@ -1,19 +1,17 @@
-import {Container, Stack} from '@mui/material';
-import JobRotationPanel from 'pages/RotationPage/components/JobRotationPanel';
+import {Container} from '@mui/material';
+import JobSidebar from 'components/JobSidebar';
+import Layout from 'components/Layout';
 import type {FC} from 'react';
 
-import JobActionsPanel from './components/JobActionsPanel';
-import JobSelectPanel from './components/JobSelectPanel';
+import JobRotationPanel from './components/JobRotationPanel';
 
 const RotationPage: FC = () => {
 	return (
-		<Container maxWidth={false}>
-			<Stack gap={4} alignItems="center">
-				<JobSelectPanel />
+		<Layout sidebar={<JobSidebar />} sidebarWidth={272}>
+			<Container maxWidth={false} sx={{padding: 4}}>
 				<JobRotationPanel />
-				<JobActionsPanel />
-			</Stack>
-		</Container>
+			</Container>
+		</Layout>
 	);
 };
 
