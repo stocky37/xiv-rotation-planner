@@ -11,7 +11,7 @@ const JobRotationPanel: FC = () => {
 	return (
 		<Card sx={{width: '100%'}}>
 			<CardHeader
-				title={'Rotation'}
+				title="Rotation"
 				action={
 					<IconButton size="small" onClick={clearRotation}>
 						<Clear />

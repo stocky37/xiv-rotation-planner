@@ -5,15 +5,13 @@ import {TimedXIVAction} from 'util/types';
 
 type Props = {
 	action: TimedXIVAction;
-	gap?: number;
 } & ActionProps;
 
-const RotationAction: FC<Props> = ({action, duration = 250, gap = 1, sx, ...props}) => {
+const RotationAction: FC<Props> = ({action, duration = 250, sx, ...props}) => {
 	return (
 		<Stack
 			sx={{
 				...sx,
-				marginLeft: `${action.ogcdGaps * (actionSize + gap * 8)}px`,
 				marginTop: action?.onGCD ? `${actionSize / 2}px` : 0,
 			}}
 		>

@@ -1,4 +1,4 @@
-import {Stack} from '@mui/material';
+import {CSSObject, Stack} from '@mui/material';
 import {SxProps} from '@mui/system';
 import type {FC} from 'react';
 import type {TimedXIVAction, XIVAction} from 'util/types';
@@ -6,9 +6,10 @@ import type {TimedXIVAction, XIVAction} from 'util/types';
 import RotationAction from './components/RotationAction';
 
 const gap = 0.25;
-const style: SxProps = {
+const style: CSSObject = {
 	gap,
-	overflowX: 'auto',
+	flexWrap: 'wrap',
+	// overflowX: 'auto',
 };
 
 type Props = {
@@ -25,7 +26,7 @@ const Rotation: FC<Props> = ({actions, onActionClick = () => {}}) => (
 				onClick={() => {
 					onActionClick(action, action.index);
 				}}
-				gap={gap}
+				gap={0}
 			/>
 		))}
 	</Stack>
