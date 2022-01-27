@@ -1,5 +1,5 @@
 _extends: .github
 repository:
   name: xiv-tools
-  description: Misc. tools app for FFXIV
+  description: Tools for FFXIV players
   topics: react, ffxiv
