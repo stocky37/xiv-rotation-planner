@@ -2,7 +2,7 @@ import jsoncrush from 'jsoncrush';
 import qs, {ParsedQs} from 'qs';
 
 import history from './history';
-import {QueryParams, XIVAction} from './types';
+import {Action, QueryParams} from './types';
 
 export function getQueryParams(): ParsedQs {
 	return qs.parse(history.location.search, {ignoreQueryPrefix: true, parseArrays: false});
@@ -21,7 +21,7 @@ export function updateQueryParams(update: QueryParams): void {
 	});
 }
 
-export function updateRotationQueryParam(actions: XIVAction[]): void {
+export function updateRotationQueryParam(actions: Action[]): void {
 	const rotation = jsoncrush.crush(JSON.stringify(actions.map((action) => action.id)));
 
 	updateQueryParams({rotation});

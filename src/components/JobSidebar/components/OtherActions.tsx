@@ -11,32 +11,30 @@ type Props = {
 	sx?: SxProps;
 };
 
-const RoleActions: FC<Props> = ({sx}) => {
+const OtherActions: FC<Props> = ({sx}) => {
 	const {isLoading, data: job} = useSelectedJob();
 	const [appendAction] = useUpdateRotation();
 
 	return (
 		<Box sx={sx}>
-			<Typography color={'text.secondary'}>Role Actions</Typography>
+			<Typography color={'text.secondary'}>Misc. Actions</Typography>
 			{isLoading ? (
 				<CircularProgress />
 			) : (
 				<ActionIcons>
-					{job?.actions
-						.filter((action) => action.isRoleAction)
-						.map((action) => (
-							<ActionIcon
-								key={action.id}
-								action={action}
-								onClick={() => {
-									appendAction(action);
-								}}
-							/>
-						))}
+					{job?.potions?.slice(0, 1)?.map((action) => (
+						<ActionIcon
+							key={action.id}
+							action={action}
+							onClick={() => {
+								appendAction(action);
+							}}
+						/>
+					))}
 				</ActionIcons>
 			)}
 		</Box>
 	);
 };
 
-export default RoleActions;
+export default OtherActions;

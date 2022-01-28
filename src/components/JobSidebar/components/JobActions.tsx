@@ -1,6 +1,7 @@
 import {Box, CircularProgress, Typography} from '@mui/material';
 import {SxProps} from '@mui/system';
-import Actions from 'components/Actions';
+import ActionIcon from 'components/ActionIcon';
+import ActionIcons from 'components/ActionIcons';
 import useSelectedJob from 'hooks/useSelectedJob';
 import useUpdateRotation from 'hooks/useUpdateRotation';
 import {FC} from 'react';
@@ -19,10 +20,19 @@ const JobActions: FC<Props> = ({sx}) => {
 			{isLoading ? (
 				<CircularProgress />
 			) : (
-				<Actions
-					actions={job?.actions.filter((action) => !action.isRoleAction)}
-					onClick={appendAction}
-				/>
+				<ActionIcons>
+					{job?.actions
+						.filter((action) => !action.isRoleAction)
+						.map((action) => (
+							<ActionIcon
+								key={action.id}
+								action={action}
+								onClick={() => {
+									appendAction(action);
+								}}
+							/>
+						))}
+				</ActionIcons>
 			)}
 		</Box>
 	);
