@@ -1,17 +1,17 @@
 import {ACTION_DELAY} from './constants';
-import {TimedXIVAction, XIVAction} from './types';
+import {Action, Item, UsedAction} from './types';
 
 // if there is only one ogcd, assume it is weaved late
 export default function buildTimeline(
-	actions: XIVAction[],
+	actions: Array<Action | Item>,
 	gcd = 2500,
 	actionDelay = ACTION_DELAY
-): TimedXIVAction[] {
+): UsedAction[] {
 	let nextGcd = 0;
 	let nextOGcd = 0;
 	let gcdNumber = 0;
 
-	const timeline: TimedXIVAction[] = [];
+	const timeline: UsedAction[] = [];
 	actions.forEach((action, index) => {
 		let timestamp: number;
 		let ogcdWindows = 0;
@@ -39,7 +39,7 @@ export default function buildTimeline(
 		}
 
 		timeline.push({
-			...action,
+			action,
 			timestamp,
 			index,
 			gcdNumber,

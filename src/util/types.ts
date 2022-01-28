@@ -1,25 +1,42 @@
-export type XIVAction = {
+export type ActionCommon = {
 	id: string;
 	name: string;
-	category: string;
-	description: string;
 	icon: string;
+	description: string;
+	recast: number;
+	onGCD: boolean;
+};
+
+export type Action = {
 	iconHD: string;
 	comboFrom?: number;
-	onGCD: boolean;
 	cooldownGroups: number[];
-	recast: number;
 	cast: number;
 	isRoleAction: boolean;
 	level: number;
+} & ActionCommon;
+
+export type Attribute = 'strength' | 'dexterity' | 'vitality' | 'intelligence' | 'mind';
+
+export type ItemBonus = {
+	attribute: Attribute;
+	value: number;
+	max: number;
 };
 
-export type TimedXIVAction = {
+export type Item = {
+	iconHD: string;
+	bonusDuration: number;
+	bonuses?: ItemBonus[];
+} & ActionCommon;
+
+export type UsedAction = {
 	index: number;
 	timestamp: number;
 	gcdNumber?: number;
 	ogcdGaps: number;
-} & XIVAction;
+	action: Action | Item;
+};
 
 export type JobCategory = 'dow' | 'dom' | 'doh' | 'dol';
 export type JobType = 'class' | 'job';
@@ -37,8 +54,9 @@ export type Job = {
 	isLimited: boolean;
 };
 
-export type JobWithAction = {
-	actions: XIVAction[];
+export type EnrichedJob = {
+	actions: Action[];
+	potions: Item[];
 } & Job;
 
 export type QueryParams = {

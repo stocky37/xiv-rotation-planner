@@ -3,10 +3,10 @@ import {Box, BoxProps} from '@mui/system';
 import {Image} from 'mui-image';
 import type {FC} from 'react';
 import actionIcon from 'util/actionIcon';
-import {XIVAction} from 'util/types';
+import {Action, Item} from 'util/types';
 
-export type ActionProps = {
-	action?: XIVAction;
+export type ActionIconProps = {
+	action?: Action | Item;
 	duration?: number;
 } & BoxProps;
 
@@ -18,12 +18,12 @@ const style = {
 	},
 };
 
-const Action: FC<ActionProps> = ({action, sx = {}, duration = 500, ...props}) => (
+const ActionIcon: FC<ActionIconProps> = ({action, sx = {}, duration = 500, ...props}) => (
 	<Tooltip title={action?.name ?? ''} disableInteractive>
 		<Box sx={{...style, ...sx}} {...props}>
 			{action && (
 				<Image
-					src={actionIcon(action?.icon ?? '')}
+					src={actionIcon(action)}
 					height={actionSize}
 					width={actionSize}
 					duration={duration}
@@ -34,4 +34,4 @@ const Action: FC<ActionProps> = ({action, sx = {}, duration = 500, ...props}) =>
 	</Tooltip>
 );
 
-export default Action;
+export default ActionIcon;

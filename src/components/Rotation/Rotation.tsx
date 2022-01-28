@@ -1,18 +1,17 @@
 import {CSSObject, Stack} from '@mui/material';
 import type {FC} from 'react';
-import type {TimedXIVAction, XIVAction} from 'util/types';
+import type {Action, Item, UsedAction} from 'util/types';
 
 import RotationAction from './components/RotationAction';
 
-const gap = 0.25;
 const style: CSSObject = {
-	gap,
 	flexWrap: 'wrap',
+	gap: 0.25,
 };
 
 type Props = {
-	actions: TimedXIVAction[];
-	onActionClick?: (action: XIVAction, index: number) => void;
+	actions: UsedAction[];
+	onActionClick?: (action: Action | Item, index: number) => void;
 };
 
 const Rotation: FC<Props> = ({actions, onActionClick = () => {}}) => (
@@ -22,9 +21,8 @@ const Rotation: FC<Props> = ({actions, onActionClick = () => {}}) => (
 				key={index}
 				action={action}
 				onClick={() => {
-					onActionClick(action, action.index);
+					onActionClick(action.action, action.index);
 				}}
-				gap={0}
 			/>
 		))}
 	</Stack>

@@ -1,24 +1,24 @@
 import {Stack, Typography} from '@mui/material';
-import Action, {ActionProps, actionSize} from 'components/Action';
+import ActionIcon, {actionSize} from 'components/ActionIcon';
 import type {FC} from 'react';
-import {TimedXIVAction} from 'util/types';
+import {UsedAction} from 'util/types';
 
 type Props = {
-	action: TimedXIVAction;
-} & ActionProps;
-
-const RotationAction: FC<Props> = ({action, duration = 250, sx, ...props}) => {
-	return (
-		<Stack
-			sx={{
-				...sx,
-				marginTop: action?.onGCD ? `${actionSize / 2}px` : 0,
-			}}
-		>
-			<Action action={action} duration={duration} {...props} />
-			{action?.onGCD ? <Typography textAlign="center">{action?.gcdNumber}</Typography> : null}
-		</Stack>
-	);
+	action: UsedAction;
+	duration?: number;
+	onClick?: () => void;
 };
+
+const RotationAction: FC<Props> = ({action, duration = 250, onClick}) => (
+	<Stack
+		sx={{
+			gap: 0,
+			marginTop: action.action.onGCD ? `${actionSize / 2}px` : 0,
+		}}
+	>
+		<ActionIcon action={action.action} duration={duration} onClick={onClick} />
+		{action.action.onGCD ? <Typography textAlign="center">{action.gcdNumber}</Typography> : null}
+	</Stack>
+);
 
 export default RotationAction;

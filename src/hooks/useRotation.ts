@@ -1,42 +1,44 @@
 import {useEffect, useMemo} from 'react';
 import {useGetRecoilValueInfo_UNSTABLE, useRecoilState, useRecoilValue} from 'recoil';
 import {getRotation, rotationAtom} from 'util/atoms';
-import buildTimeline from 'util/buildTimeline';
 import {getRotationQueryParam} from 'util/queryParams';
-import type {TimedXIVAction, XIVAction} from 'util/types';
+import type {Action, Item, UsedAction} from 'util/types';
 
 import useSelectedJob from './useSelectedJob';
 
 type NormalisedActions = {
-	[x: string]: XIVAction;
+	[x: string]: Action | Item;
 };
 
-function normalise(actions: XIVAction[] = []): NormalisedActions {
+function normalise(actions: Array<Action | Item> = []): NormalisedActions {
 	const lookup: NormalisedActions = {};
-	actions.forEach((action) => {
+	actions.forEach((action: Action | Item) => {
 		lookup[action.id] = action;
 	});
 	return lookup;
 }
 
-export default function useRotation(): TimedXIVAction[] {
+export default function useRotation(): UsedAction[] {
 	const getRecoilValueInfo = useGetRecoilValueInfo_UNSTABLE();
 	const {isSet} = getRecoilValueInfo(rotationAtom);
 	const [, setRotation] = useRecoilState(rotationAtom);
 
 	const {isLoading, data} = useSelectedJob();
 	const normalisedActions = useMemo(() => normalise(data?.actions), [data?.actions]);
+	const normalisedPotions = useMemo(() => normalise(data?.potions), [data?.potions]);
 	const queryParamValue = getRotationQueryParam();
 	const rotation = useRecoilValue(getRotation);
 
 	useEffect(() => {
 		if (!isSet && queryParamValue && !isLoading && data) {
 			setRotation(
-				buildTimeline(
-					queryParamValue.map((id) => {
+				queryParamValue.map((id) => {
+					if (id in normalisedActions) {
 						return normalisedActions[id];
-					})
-				)
+					} else {
+						return normalisedPotions[id];
+					}
+				})
 			);
 		}
 	});
