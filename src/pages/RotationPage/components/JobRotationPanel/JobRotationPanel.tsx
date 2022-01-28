@@ -1,6 +1,7 @@
 import {Clear} from '@mui/icons-material';
 import {Card, CardContent, CardHeader, IconButton} from '@mui/material';
-import Rotation from 'components/Rotation';
+import ActionIcons from 'components/ActionIcons';
+import RotationAction from 'components/RotationAction/RotationAction';
 import useRotation from 'hooks/useRotation';
 import useUpdateRotation from 'hooks/useUpdateRotation';
 import type {FC} from 'react';
@@ -19,7 +20,17 @@ const JobRotationPanel: FC = () => {
 				}
 			/>
 			<CardContent>
-				<Rotation actions={rotation} onActionClick={removeAction} />
+				<ActionIcons>
+					{rotation.map((action, index) => (
+						<RotationAction
+							key={index}
+							action={action}
+							onClick={() => {
+								removeAction(action.action, action.index);
+							}}
+						/>
+					))}
+				</ActionIcons>
 			</CardContent>
 		</Card>
 	);

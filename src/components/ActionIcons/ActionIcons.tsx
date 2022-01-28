@@ -1,15 +1,12 @@
-import {Stack} from '@mui/material';
-import {SxProps} from '@mui/system';
+import {Box, CSSObject} from '@mui/material';
 import type {FC, PropsWithChildren} from 'react';
 
 type Props = {
-	sx?: SxProps;
+	sx?: CSSObject;
 };
 
 const ActionIcons: FC<PropsWithChildren<Props>> = ({children, sx = {}}) => (
-	<Stack direction="row" spacing={0.25} sx={{flexWrap: 'wrap', ...sx}}>
-		{children}
-	</Stack>
+	<Box sx={{display: 'flex', flexWrap: 'wrap', gap: 0.25, ...sx}}>{children}</Box>
 );
 
 export default ActionIcons;
