@@ -1,7 +1,8 @@
 import {Stack, Typography} from '@mui/material';
 import ActionIcon, {actionSize} from 'components/ActionIcon';
 import type {FC} from 'react';
-import {TimelineAction} from 'util/types';
+
+import type {TimelineAction} from '../../util/types';
 
 type Props = {
 	timelineAction: TimelineAction;

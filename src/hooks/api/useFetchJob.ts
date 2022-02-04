@@ -1,7 +1,8 @@
 import type {UseQueryResult} from 'react-query';
 import {useQuery} from 'react-query';
 import {API_URL} from 'util/config';
-import type {EnrichedJob} from 'util/types';
+
+import type {EnrichedJob} from '../../util/types';
 
 export default function useFetchJob(jobId: string): UseQueryResult<EnrichedJob> {
 	return useQuery(['jobs', jobId], () =>

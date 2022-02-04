@@ -9,7 +9,8 @@ import {
 	filterRangedPhysDps,
 	filterTanks,
 } from 'util/jobs';
-import type {Job} from 'util/types';
+
+import type {Job} from '../../util/types';
 
 type Props = {
 	defaultValue?: string;

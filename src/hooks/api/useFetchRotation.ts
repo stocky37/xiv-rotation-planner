@@ -1,7 +1,8 @@
 import type {UseQueryResult} from 'react-query';
 import {useQuery} from 'react-query';
 import {API_URL} from 'util/config';
-import type {Rotation, RotationRequest} from 'util/types';
+
+import type {Rotation, RotationRequest} from '../../util/types';
 
 export default function useFetchRotation(req: RotationRequest): UseQueryResult<Rotation> {
 	return useQuery(['rotation', req], () => {
