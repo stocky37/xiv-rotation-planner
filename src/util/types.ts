@@ -30,14 +30,6 @@ export type Item = {
 	bonuses?: ItemBonus[];
 } & ActionCommon;
 
-export type UsedAction = {
-	index: number;
-	timestamp: number;
-	gcdNumber?: number;
-	ogcdGaps: number;
-	action: Action | Item;
-};
-
 export type JobCategory = 'dow' | 'dom' | 'doh' | 'dol';
 export type JobType = 'class' | 'job';
 export type JobRole = 'non-battle' | 'tank' | 'melee-dps' | 'ranged-dps' | 'healer';
@@ -62,4 +54,19 @@ export type EnrichedJob = {
 export type QueryParams = {
 	job?: string;
 	rotation?: string;
+};
+
+export type TimelineAction = {
+	action?: Action;
+	item?: Item;
+	timestamp: number;
+	gcdNumber?: number;
+};
+
+export type Rotation = {
+	actions: TimelineAction[];
+};
+
+export type RotationRequest = {
+	actions: string[];
 };

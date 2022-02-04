@@ -1,34 +1,30 @@
 import {useCallback} from 'react';
-import {useRecoilState} from 'recoil';
-import {rotationAtom} from 'util/atoms';
-import {updateRotationQueryParam} from 'util/queryParams';
 import {Action, Item} from 'util/types';
+
+import useRotationActions from './useRotationActions';
+
+// prefix i for item ids
+const id = (action: Action | Item) => {
+	return action.hasOwnProperty('level') ? action.id : `i${action.id}`;
+};
 
 export default function useUpdateRotation(): [
 	(action: Action | Item) => void,
-	(action: Action | Item, index: number) => void,
+	(index: number) => void,
 	() => void
 ] {
-	const [rotation, setRawRotation] = useRecoilState(rotationAtom);
-
-	const setRotation = useCallback(
-		(actions) => {
-			setRawRotation(actions);
-			updateRotationQueryParam(actions);
-		},
-		[setRawRotation]
-	);
+	const [rotation, setRotation] = useRotationActions();
 
 	const appendAction = useCallback(
 		(action: Action | Item) => {
-			const updated = [...rotation, action];
+			const updated = [...rotation, id(action)];
 			setRotation(updated);
 		},
 		[setRotation, rotation]
 	);
 
 	const removeAction = useCallback(
-		(action: Action | Item, index: number) => {
+		(index: number) => {
 			const updated = [...rotation];
 			updated.splice(index, 1);
 			setRotation(updated);

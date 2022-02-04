@@ -5,9 +5,20 @@ import RotationAction from 'components/RotationAction/RotationAction';
 import useRotation from 'hooks/useRotation';
 import useUpdateRotation from 'hooks/useUpdateRotation';
 import type {FC} from 'react';
+import {useEffect, useState} from 'react';
+import {Rotation} from 'util/types';
 
 const JobRotationPanel: FC = () => {
-	const rotation = useRotation();
+	const {data: rotation, isLoading} = useRotation();
+
+	// keeps the previous rotation displayed while the next request is loading
+	const [prev, setPrev] = useState<Rotation>({actions: []});
+	useEffect(() => {
+		if (!isLoading && rotation) {
+			setPrev(rotation);
+		}
+	}, [isLoading, rotation]);
+
 	const [, removeAction, clearRotation] = useUpdateRotation();
 	return (
 		<Card sx={{width: '100%'}}>
@@ -20,13 +31,13 @@ const JobRotationPanel: FC = () => {
 				}
 			/>
 			<CardContent>
-				<ActionIcons>
-					{rotation.map((action, index) => (
+				<ActionIcons sx={{gap: 0}}>
+					{(isLoading ? prev : rotation)?.actions.map((action, index) => (
 						<RotationAction
 							key={index}
-							action={action}
+							timelineAction={action}
 							onClick={() => {
-								removeAction(action.action, action.index);
+								removeAction(index);
 							}}
 						/>
 					))}

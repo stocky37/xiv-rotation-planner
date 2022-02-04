@@ -1,9 +1,8 @@
 import {Box, CircularProgress, SelectChangeEvent} from '@mui/material';
 import {SxProps} from '@mui/system';
 import JobSelect from 'components/JobSelect';
-import useJobs from 'hooks/useJobs';
-import useSelectedJobId from 'hooks/useSelectedJobId';
-import useSelectJob from 'hooks/useSelectJob';
+import useFetchJobs from 'hooks/api/useFetchJobs';
+import useJob from 'hooks/useJob';
 import useUpdateRotation from 'hooks/useUpdateRotation';
 import {FC, useCallback} from 'react';
 
@@ -12,17 +11,16 @@ type Props = {
 };
 
 const SidebarJobSelect: FC<Props> = ({sx}) => {
-	const {isLoading, data: jobs} = useJobs();
-	const jobId = useSelectedJobId();
-	const selectJob = useSelectJob();
+	const {isLoading, data: jobs} = useFetchJobs();
+	const [jobId, setJobId] = useJob();
 	const [, , clearRotation] = useUpdateRotation();
 
 	const onSelectChange = useCallback(
 		(event: SelectChangeEvent) => {
-			selectJob(event.target.value);
+			setJobId(event.target.value);
 			clearRotation();
 		},
-		[selectJob, clearRotation]
+		[clearRotation, setJobId]
 	);
 
 	return (

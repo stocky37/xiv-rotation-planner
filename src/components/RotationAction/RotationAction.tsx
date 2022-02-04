@@ -1,24 +1,29 @@
 import {Stack, Typography} from '@mui/material';
 import ActionIcon, {actionSize} from 'components/ActionIcon';
 import type {FC} from 'react';
-import {UsedAction} from 'util/types';
+import {TimelineAction} from 'util/types';
 
 type Props = {
-	action: UsedAction;
+	timelineAction: TimelineAction;
 	duration?: number;
 	onClick?: () => void;
 };
 
-const RotationAction: FC<Props> = ({action, duration = 250, onClick}) => (
-	<Stack
-		sx={{
-			gap: 0,
-			marginTop: action.action.onGCD ? `${actionSize / 2}px` : 0,
-		}}
-	>
-		<ActionIcon action={action.action} duration={duration} onClick={onClick} />
-		{action.action.onGCD ? <Typography textAlign="center">{action.gcdNumber}</Typography> : null}
-	</Stack>
-);
+const RotationAction: FC<Props> = ({timelineAction, duration = 250, onClick}) => {
+	const action = timelineAction.action ?? timelineAction.item;
+	return (
+		<Stack
+			sx={{
+				gap: 0,
+				paddingTop: action?.onGCD ? `${actionSize / 2}px` : 0,
+			}}
+		>
+			<ActionIcon action={action} duration={duration} onClick={onClick} />
+			{action?.onGCD ? (
+				<Typography textAlign="center">{timelineAction.gcdNumber}</Typography>
+			) : null}
+		</Stack>
+	);
+};
 
 export default RotationAction;
