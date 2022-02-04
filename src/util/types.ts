@@ -51,11 +51,6 @@ export type EnrichedJob = {
 	potions: Item[];
 } & Job;
 
-export type QueryParams = {
-	job?: string;
-	rotation?: string;
-};
-
 export type TimelineAction = {
 	action?: Action;
 	item?: Item;

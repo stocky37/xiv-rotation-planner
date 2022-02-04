@@ -1,6 +1,6 @@
 import {useCallback} from 'react';
-import {Action, Item} from 'util/types';
 
+import type {Action, Item} from '../util/types';
 import useRotationActions from './useRotationActions';
 
 // prefix i for item ids

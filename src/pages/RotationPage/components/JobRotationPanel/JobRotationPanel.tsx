@@ -6,7 +6,8 @@ import useRotation from 'hooks/useRotation';
 import useUpdateRotation from 'hooks/useUpdateRotation';
 import type {FC} from 'react';
 import {useEffect, useState} from 'react';
-import {Rotation} from 'util/types';
+
+import {Rotation} from '../../../../util/types';
 
 const JobRotationPanel: FC = () => {
 	const {data: rotation, isLoading} = useRotation();

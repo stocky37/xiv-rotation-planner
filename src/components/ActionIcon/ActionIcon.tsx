@@ -3,7 +3,8 @@ import {Box, BoxProps} from '@mui/system';
 import {Image} from 'mui-image';
 import type {FC} from 'react';
 import actionIcon from 'util/actionIcon';
-import {Action, Item} from 'util/types';
+
+import type {Action, Item} from '../../util/types';
 
 export type ActionIconProps = {
 	action?: Action | Item;
