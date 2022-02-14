@@ -2,7 +2,7 @@
 	"name": "xiv-tools",
 	"version": "0.1.0",
 	"private": true,
-	"homepage": "https://stocky37.github.io/xiv-tools/",
+	"homepage": "https://xivtools.stocky37.dev",
 	"scripts": {
 		"start": "BROWSER=none react-scripts start",
 		"build": "react-scripts build",
