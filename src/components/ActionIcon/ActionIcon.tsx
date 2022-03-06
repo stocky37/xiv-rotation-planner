@@ -1,13 +1,12 @@
 import {Tooltip} from '@mui/material';
 import {Box, BoxProps} from '@mui/system';
+import type {Action} from 'api/types';
 import {Image} from 'mui-image';
 import type {FC} from 'react';
 import actionIcon from 'util/actionIcon';
 
-import type {Action, Item} from '../../util/types';
-
 export type ActionIconProps = {
-	action?: Action | Item;
+	action?: Action;
 	duration?: number;
 } & BoxProps;
 

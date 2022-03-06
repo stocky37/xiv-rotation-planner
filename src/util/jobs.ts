@@ -1,4 +1,4 @@
-import {Job} from './types';
+import type {Job} from 'api/types';
 
 function commonFilters(jobs: Job[]): Job[] {
 	return jobs

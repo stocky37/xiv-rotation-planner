@@ -1,5 +1,6 @@
 import type {SelectProps} from '@mui/material';
 import {ListItemIcon, ListItemText, ListSubheader, MenuItem, Select} from '@mui/material';
+import type {Job} from 'api/types';
 import JobIcon from 'components/JobIcon';
 import type {FC} from 'react';
 import {
@@ -9,8 +10,6 @@ import {
 	filterRangedPhysDps,
 	filterTanks,
 } from 'util/jobs';
-
-import type {Job} from '../../util/types';
 
 type Props = {
 	defaultValue?: string;

@@ -1,9 +1,9 @@
+import type {DetailedJob} from 'api/types';
 import {UseQueryResult} from 'react-query';
 
-import type {EnrichedJob} from '../util/types';
 import useFetchJob from './api/useFetchJob';
 import useJob from './useJob';
 
-export default function useSelectedJob(): UseQueryResult<EnrichedJob> {
+export default function useSelectedJob(): UseQueryResult<DetailedJob> {
 	return useFetchJob(useJob()[0]);
 }

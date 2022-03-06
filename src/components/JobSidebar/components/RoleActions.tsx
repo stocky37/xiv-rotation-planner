@@ -22,7 +22,7 @@ const RoleActions: FC<Props> = ({sx}) => {
 				<CircularProgress />
 			) : (
 				<ActionIcons>
-					{job?.actions
+					{job?.abilities
 						.filter((action) => action.isRoleAction)
 						.map((action) => (
 							<ActionIcon

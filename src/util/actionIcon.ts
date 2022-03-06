@@ -1,7 +1,16 @@
-import basename from './basename';
-import type {Action, Item} from './types';
+import type {Action, ActionType} from 'api/types';
 
-export default function actionIcon(action: Action | Item): string {
-	const type: string = (action as Action).level !== undefined ? 'action' : 'item';
-	return `${process.env.PUBLIC_URL}/images/${type}s/${basename(action.icon)}`;
+import basename from './basename';
+
+function iconDir(actionType?: ActionType) {
+	switch (actionType) {
+		case 'item':
+			return actionType;
+		default:
+			return 'action';
+	}
+}
+
+export default function actionIcon(action: Action): string {
+	return `${process.env.PUBLIC_URL}/images/${iconDir(action.actionType)}s/${basename(action.icon)}`;
 }
