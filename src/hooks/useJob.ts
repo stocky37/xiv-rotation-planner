@@ -1,7 +1,7 @@
+import type {Job} from 'api/types';
 import {useCallback} from 'react';
 import {jobAtom} from 'util/atoms';
 
-import type {Job} from '../util/types';
 import useSyncedQueryParam from './useSyncedQueryParam';
 
 export default function useJob(): [string, (job: Job | string) => void] {

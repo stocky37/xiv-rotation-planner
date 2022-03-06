@@ -1,22 +1,29 @@
+import type {Action} from 'api/types';
 import {useCallback} from 'react';
 
-import type {Action, Item} from '../util/types';
 import useRotationActions from './useRotationActions';
 
 // prefix i for item ids
-const id = (action: Action | Item) => {
-	return action.hasOwnProperty('level') ? action.id : `i${action.id}`;
+const id = (action: Action): string => {
+	switch (action.actionType) {
+		case 'ability':
+			return action.id;
+		case 'item':
+			return `i${action.id}`;
+		default:
+			throw new Error('Delays not handled yet');
+	}
 };
 
 export default function useUpdateRotation(): [
-	(action: Action | Item) => void,
+	(action: Action) => void,
 	(index: number) => void,
 	() => void
 ] {
 	const [rotation, setRotation] = useRotationActions();
 
 	const appendAction = useCallback(
-		(action: Action | Item) => {
+		(action: Action) => {
 			const updated = [...rotation, id(action)];
 			setRotation(updated);
 		},

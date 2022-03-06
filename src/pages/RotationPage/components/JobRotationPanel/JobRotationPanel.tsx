@@ -1,13 +1,12 @@
 import {Clear} from '@mui/icons-material';
 import {Card, CardContent, CardHeader, IconButton} from '@mui/material';
+import type {Rotation} from 'api/types';
 import ActionIcons from 'components/ActionIcons';
-import RotationAction from 'components/RotationAction/RotationAction';
+import RotationActionIcon from 'components/RotationActionIcon';
 import useRotation from 'hooks/useRotation';
 import useUpdateRotation from 'hooks/useUpdateRotation';
 import type {FC} from 'react';
 import {useEffect, useState} from 'react';
-
-import {Rotation} from '../../../../util/types';
 
 const JobRotationPanel: FC = () => {
 	const {data: rotation, isLoading} = useRotation();
@@ -34,9 +33,9 @@ const JobRotationPanel: FC = () => {
 			<CardContent>
 				<ActionIcons sx={{gap: 0}}>
 					{(isLoading ? prev : rotation)?.actions.map((action, index) => (
-						<RotationAction
+						<RotationActionIcon
 							key={index}
-							timelineAction={action}
+							action={action}
 							onClick={() => {
 								removeAction(index);
 							}}
