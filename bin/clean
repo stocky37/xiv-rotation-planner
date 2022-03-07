@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+
+set -x
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+PROJECT_DIR=$( realpath "$SCRIPT_DIR/../")
+
+rm -rf "$PROJECT_DIR"/build
+rm -f "$PROJECT_DIR"/.images/**/*.png

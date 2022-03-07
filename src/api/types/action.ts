@@ -13,6 +13,6 @@ export type Action = {
 	cast: number;
 	recast: number;
 	effects: StatusEffect[];
+	actionType: ActionType;
 	animationLock?: number;
-	actionType?: ActionType;
 } & Base;
