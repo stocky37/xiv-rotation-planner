@@ -2,27 +2,36 @@ import {Box} from '@mui/material';
 import type {SxProps} from '@mui/system';
 import type {Job} from 'api/types';
 import type {FC} from 'react';
+import slugify from 'slugify';
+
+type JobIconVariant = 'filled' | 'stroke' | 'transparent';
 
 type Props = {
 	job: Job;
 	size?: string;
 	sx?: SxProps;
-	variant?: 'filled' | 'svg' | 'transparent';
+	variant?: JobIconVariant;
 };
 
-const iconString = {
-	filled: (job: Job) =>
-		`${process.env.PUBLIC_URL}/images/jobs/filled/${job.name.replaceAll(' ', '')}.png`,
-	transparent: (job: Job) =>
-		`${process.env.PUBLIC_URL}/images/jobs/transparent/${job.name.replaceAll(' ', '')}.png`,
-	svg: (job: Job) => `${process.env.PUBLIC_URL}/images/jobs/svg/class_job_0${job.id}.svg`,
+type VariantExtensions = {
+	[x in JobIconVariant]: string;
 };
 
-const JobIcon: FC<Props> = ({job, size = '30px', sx, variant = 'svg'}) => (
+const exts: VariantExtensions = {
+	filled: 'png',
+	stroke: 'svg',
+	transparent: 'png',
+};
+
+function iconString(job: Job, variant: JobIconVariant) {
+	return `${process.env.PUBLIC_URL}/images/jobs/${variant}/${slugify(job.name)}.${exts[variant]}`;
+}
+
+const JobIcon: FC<Props> = ({job, size = '30px', sx, variant = 'filled'}) => (
 	<Box
 		component="img"
 		alt={job.abbreviation}
-		src={iconString[variant](job)}
+		src={iconString(job, variant)}
 		sx={{
 			width: size,
 			height: size,
