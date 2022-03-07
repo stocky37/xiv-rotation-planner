@@ -8,9 +8,13 @@ import actionIcon from 'util/actionIcon';
 export type ActionIconProps = {
 	action?: Action;
 	duration?: number;
+	size?: 'm' | 's';
 } & BoxProps;
 
-export const actionSize = 46;
+export const sizes = {
+	m: 46,
+	s: 35,
+};
 
 const style = {
 	':hover': {
@@ -18,20 +22,28 @@ const style = {
 	},
 };
 
-const ActionIcon: FC<ActionIconProps> = ({action, sx = {}, duration = 500, ...props}) => (
-	<Tooltip title={action?.name ?? ''} disableInteractive>
-		<Box sx={{...style, ...sx}} {...props}>
-			{action && (
-				<Image
-					src={actionIcon(action)}
-					height={actionSize}
-					width={actionSize}
-					duration={duration}
-					{...props}
-				/>
-			)}
-		</Box>
-	</Tooltip>
-);
+const ActionIcon: FC<ActionIconProps> = ({
+	action,
+	sx = {},
+	duration = 500,
+	size = 'm',
+	...props
+}) => {
+	return (
+		<Tooltip title={action?.name ?? ''} disableInteractive>
+			<Box sx={{...style, ...sx}} {...props}>
+				{action && (
+					<Image
+						src={actionIcon(action, size)}
+						height={sizes[size]}
+						width={sizes[size]}
+						duration={duration}
+						{...props}
+					/>
+				)}
+			</Box>
+		</Tooltip>
+	);
+};
 
 export default ActionIcon;
