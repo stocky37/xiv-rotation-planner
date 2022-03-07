@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import Promises from 'bluebird';
 import {exec} from 'child_process';
 import fs from 'fs';

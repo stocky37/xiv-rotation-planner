@@ -1,10 +1,8 @@
-#!/usr/bin/env node
-
 import {constants, createWriteStream, mkdirSync} from 'fs';
 import {access} from 'fs/promises';
 import fetch from 'node-fetch';
 import path from 'path';
-import {API_URL} from './common.js';
+import {API_URL, fetchJobs} from './common.js';
 
 function downloadIcon(destDir, icon) {
 	let filename = path.join(destDir, path.basename(icon));
@@ -21,8 +19,7 @@ export async function downloadAbilityIcons(destDir) {
 	const abilities = new Set();
 	mkdirSync(destDir, {recursive: true});
 	console.log('Fetching jobs...');
-	await fetch(`${API_URL}/jobs?type=JOB`)
-		.then((res) => res.json())
+	await fetchJobs()
 		.then((jobs) =>
 			Promise.all(jobs.map((job) => fetch(`${API_URL}/jobs/${job.id}`).then((res) => res.json())))
 		)
@@ -40,8 +37,7 @@ export async function downloadItemIcons(destDir) {
 	const items = new Set();
 	mkdirSync(destDir, {recursive: true});
 	console.log('Fetching jobs...');
-	await fetch(`${API_URL}/jobs?type=JOB`)
-		.then((res) => res.json())
+	await fetchJobs()
 		.then((jobs) =>
 			Promise.all(jobs.map((job) => fetch(`${API_URL}/jobs/${job.id}`).then((res) => res.json())))
 		)
