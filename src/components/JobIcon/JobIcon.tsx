@@ -2,7 +2,6 @@ import {Box} from '@mui/material';
 import type {SxProps} from '@mui/system';
 import type {Job} from 'api/types';
 import type {FC} from 'react';
-import slugify from 'slugify';
 
 type JobIconVariant = 'filled' | 'stroke' | 'transparent';
 
@@ -24,7 +23,7 @@ const exts: VariantExtensions = {
 };
 
 function iconString(job: Job, variant: JobIconVariant) {
-	return `${process.env.PUBLIC_URL}/images/jobs/${variant}/${slugify(job.name)}.${exts[variant]}`;
+	return `${process.env.PUBLIC_URL}/images/jobs/${variant}/${job.slug}.${exts[variant]}`;
 }
 
 const JobIcon: FC<Props> = ({job, size = '30px', sx, variant = 'filled'}) => (

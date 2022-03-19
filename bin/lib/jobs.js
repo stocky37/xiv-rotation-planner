@@ -1,6 +1,5 @@
 import {symlink, unlink} from 'fs/promises';
 import {basename, dirname, extname, join, relative} from 'path';
-import slugify from 'slugify';
 import {directories, fetchJobs} from './common.js';
 
 const srcDir = join(directories.vendor, 'xivapi', 'classjob-icons');
@@ -33,7 +32,7 @@ function svgFilename(id) {
 
 async function linkIcon(job, target, path) {
 	const ext = extname(target);
-	const filename = `${slugify(job.name)}${ext}`;
+	const filename = `${job.slug}${ext}`;
 	const destpath = join(path, filename);
 	unlink(destpath)
 		.catch(() => Promise.resolve())

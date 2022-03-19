@@ -1,4 +1,4 @@
-import {Action} from './action';
+import type {Action} from './common';
 
 export type TimelineAction = {
 	action: Action;
