@@ -1,4 +1,4 @@
-import type {Action} from './common';
+import type {Action, ActionType} from './common';
 
 export type TimelineAction = {
 	action: Action;
@@ -7,10 +7,17 @@ export type TimelineAction = {
 	// effects
 };
 
+export type RotationRequestAction = {
+	type: ActionType;
+	id?: string;
+	duration?: number;
+};
+
 export type RotationRequest = {
-	actions: string[];
+	job: string;
+	rotation: RotationRequestAction[];
 };
 
 export type Rotation = {
-	actions: TimelineAction[];
+	rotation: TimelineAction[];
 };

@@ -1,30 +1,18 @@
-import type {Action} from 'api/types';
+import type {Action, RotationRequestAction} from 'api/types';
 import {useCallback} from 'react';
-
-import useRotationActions from './useRotationActions';
-
-// prefix i for item ids
-const id = (action: Action): string => {
-	switch (action.actionType) {
-		case 'ability':
-			return action.id;
-		case 'item':
-			return `i${action.id}`;
-		default:
-			throw new Error('Delays not handled yet');
-	}
-};
+import {useRecoilState} from 'recoil';
+import {rotationAtom} from 'util/atoms';
 
 export default function useUpdateRotation(): [
 	(action: Action) => void,
 	(index: number) => void,
 	() => void
 ] {
-	const [rotation, setRotation] = useRotationActions();
+	const [rotation, setRotation] = useRecoilState(rotationAtom);
 
 	const appendAction = useCallback(
 		(action: Action) => {
-			const updated = [...rotation, id(action)];
+			const updated = [...rotation, toInput(action)];
 			setRotation(updated);
 		},
 		[setRotation, rotation]
@@ -44,4 +32,11 @@ export default function useUpdateRotation(): [
 	}, [setRotation]);
 
 	return [appendAction, removeAction, clearRotation];
+}
+
+function toInput(action: Action): RotationRequestAction {
+	return {
+		id: action.id,
+		type: action.actionType,
+	};
 }

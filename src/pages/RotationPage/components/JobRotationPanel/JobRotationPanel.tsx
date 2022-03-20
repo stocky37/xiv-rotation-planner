@@ -12,7 +12,7 @@ const JobRotationPanel: FC = () => {
 	const {data: rotation, isLoading} = useRotation();
 
 	// keeps the previous rotation displayed while the next request is loading
-	const [prev, setPrev] = useState<Rotation>({actions: []});
+	const [prev, setPrev] = useState<Rotation>({rotation: []});
 	useEffect(() => {
 		if (!isLoading && rotation) {
 			setPrev(rotation);
@@ -32,7 +32,7 @@ const JobRotationPanel: FC = () => {
 			/>
 			<CardContent>
 				<ActionIcons sx={{gap: 0}}>
-					{(isLoading ? prev : rotation)?.actions.map((action, index) => (
+					{(isLoading ? prev : rotation)?.rotation.map((action, index) => (
 						<RotationActionIcon
 							key={index}
 							action={action}
